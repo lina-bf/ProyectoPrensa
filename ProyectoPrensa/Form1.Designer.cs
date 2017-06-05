@@ -29,21 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.Lectura = new System.Windows.Forms.Button();
             this.A0 = new System.Windows.Forms.Label();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.PresionTiempo = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             this.SuspendLayout();
             // 
             // Inicio
             // 
-            this.Inicio.Location = new System.Drawing.Point(33, 22);
+            this.Inicio.Location = new System.Drawing.Point(633, 24);
             this.Inicio.Name = "Inicio";
             this.Inicio.Size = new System.Drawing.Size(146, 56);
             this.Inicio.TabIndex = 0;
@@ -53,7 +55,7 @@
             // 
             // Terminar
             // 
-            this.Terminar.Location = new System.Drawing.Point(223, 22);
+            this.Terminar.Location = new System.Drawing.Point(633, 97);
             this.Terminar.Name = "Terminar";
             this.Terminar.Size = new System.Drawing.Size(146, 56);
             this.Terminar.TabIndex = 1;
@@ -67,9 +69,9 @@
             // 
             // Lectura
             // 
-            this.Lectura.Location = new System.Drawing.Point(430, 21);
+            this.Lectura.Location = new System.Drawing.Point(633, 174);
             this.Lectura.Name = "Lectura";
-            this.Lectura.Size = new System.Drawing.Size(158, 59);
+            this.Lectura.Size = new System.Drawing.Size(146, 59);
             this.Lectura.TabIndex = 2;
             this.Lectura.Text = "Lectura";
             this.Lectura.UseVisualStyleBackColor = true;
@@ -78,43 +80,56 @@
             // A0
             // 
             this.A0.AutoSize = true;
-            this.A0.Location = new System.Drawing.Point(427, 97);
+            this.A0.Location = new System.Drawing.Point(630, 248);
             this.A0.Name = "A0";
             this.A0.Size = new System.Drawing.Size(22, 13);
             this.A0.TabIndex = 3;
             this.A0.Text = "0.0";
             // 
-            // chart1
+            // PresionTiempo
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(223, 97);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(436, 300);
-            this.chart1.TabIndex = 4;
-            this.chart1.Text = "chart1";
+            chartArea3.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend3);
+            this.PresionTiempo.Location = new System.Drawing.Point(90, 113);
+            this.PresionTiempo.Name = "PresionTiempo";
+            this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.PresionTiempo.Series.Add(series3);
+            this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
+            this.PresionTiempo.TabIndex = 4;
+            this.PresionTiempo.Text = "Gráfico de Presión";
+            this.PresionTiempo.Click += new System.EventHandler(this.PresionTiempo_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(650, 307);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(176, 125);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 378);
-            this.Controls.Add(this.chart1);
+            this.ClientSize = new System.Drawing.Size(828, 444);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PresionTiempo);
             this.Controls.Add(this.A0);
             this.Controls.Add(this.Lectura);
             this.Controls.Add(this.Terminar);
             this.Controls.Add(this.Inicio);
             this.Name = "Progra";
             this.Text = "Automatización de Prensa";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,7 +142,8 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button Lectura;
         private System.Windows.Forms.Label A0;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart PresionTiempo;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

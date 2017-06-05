@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.IO;
+
 
 namespace ProyectoPrensa
 {
@@ -25,7 +27,7 @@ namespace ProyectoPrensa
             {
                 serialPort1.Write("1");
             }
-            catch( Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -37,7 +39,7 @@ namespace ProyectoPrensa
             {
                 serialPort1.Write("0");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -52,10 +54,28 @@ namespace ProyectoPrensa
             double Sensor = Convert.ToDouble(Dato);
             double Voltaje = Sensor * 5 / 1023;
             A0.Text = Voltaje.ToString();
+            
 
+        }
+        private void Grafico()
+        {
+            PresionTiempo.Series.Clear();
+            PresionTiempo.Series.Add("Presión");
+            PresionTiempo.Series["Presión"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            PresionTiempo.ChartAreas[0].AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY2.Title = "Presión";
+
+        }
+        private void PresionTiempo_Click(object sender, EventArgs e)
+        {
 
         }
 
-       
+     
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+   

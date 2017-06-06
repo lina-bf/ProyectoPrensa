@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
@@ -40,6 +40,8 @@
             this.A0 = new System.Windows.Forms.Label();
             this.PresionTiempo = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Distancia = new System.Windows.Forms.Button();
+            this.DDist = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,18 +90,18 @@
             // 
             // PresionTiempo
             // 
-            chartArea3.Name = "ChartArea1";
-            this.PresionTiempo.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.PresionTiempo.Legends.Add(legend3);
+            chartArea2.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend2);
             this.PresionTiempo.Location = new System.Drawing.Point(90, 113);
             this.PresionTiempo.Name = "PresionTiempo";
             this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.PresionTiempo.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Presión";
+            this.PresionTiempo.Series.Add(series2);
             this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
             this.PresionTiempo.TabIndex = 4;
             this.PresionTiempo.Text = "Gráfico de Presión";
@@ -116,11 +118,32 @@
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // Distancia
+            // 
+            this.Distancia.Location = new System.Drawing.Point(12, 24);
+            this.Distancia.Name = "Distancia";
+            this.Distancia.Size = new System.Drawing.Size(124, 56);
+            this.Distancia.TabIndex = 7;
+            this.Distancia.Text = "Distancia";
+            this.Distancia.UseVisualStyleBackColor = true;
+            this.Distancia.Click += new System.EventHandler(this.Distancia_Click);
+            // 
+            // DDist
+            // 
+            this.DDist.AutoSize = true;
+            this.DDist.Location = new System.Drawing.Point(142, 46);
+            this.DDist.Name = "DDist";
+            this.DDist.Size = new System.Drawing.Size(22, 13);
+            this.DDist.TabIndex = 8;
+            this.DDist.Text = "0.0";
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 444);
+            this.Controls.Add(this.DDist);
+            this.Controls.Add(this.Distancia);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.PresionTiempo);
             this.Controls.Add(this.A0);
@@ -144,6 +167,8 @@
         private System.Windows.Forms.Label A0;
         private System.Windows.Forms.DataVisualization.Charting.Chart PresionTiempo;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button Distancia;
+        private System.Windows.Forms.Label DDist;
     }
 }
 

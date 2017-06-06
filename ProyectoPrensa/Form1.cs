@@ -1,4 +1,17 @@
-﻿using System;
+﻿//Proyecto de Automatizacion de un Prensa
+//Insituto Tecnologico de Costa Rica
+//Area Academica Ingeneria Mecatronica
+//Curso de Automatizacion y Redes Industriales
+//Grupo 02
+//Estudiantes:
+//Lina Bourrouet Formoso
+//Debora Gonzalez Gamez
+//Allison Mendoza Manzanares
+//Geronimo Ruepert Belderbos
+
+//Agregando Biblioteca
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +23,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
 
-
+//Inicio del Codigo
 namespace ProyectoPrensa
 {
     public partial class Progra : Form
@@ -19,12 +32,14 @@ namespace ProyectoPrensa
         {
             InitializeComponent();
         }
-
+        //Inicio de la comunicacion Serial al hacer click al boton Inicio
         private void Inicio_Click(object sender, EventArgs e)
         {
+            //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
             serialPort1.Open();
             try
             {
+                //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
                 serialPort1.Write("1");
             }
             catch (Exception ex)
@@ -37,6 +52,7 @@ namespace ProyectoPrensa
         {
             try
             {
+                //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
                 serialPort1.Write("0");
             }
             catch (Exception ex)
@@ -44,18 +60,6 @@ namespace ProyectoPrensa
                 MessageBox.Show(ex.Message);
             }
             serialPort1.Close();
-        }
-
-        private void Lectura_Click(object sender, EventArgs e)
-        {
-
-            serialPort1.Write("6");
-            string Dato = serialPort1.ReadLine().ToString();
-            double Sensor = Convert.ToDouble(Dato);
-            double Voltaje = Sensor * 5 / 1023;
-            A0.Text = Voltaje.ToString();
-            
-
         }
         private void Grafico()
         {
@@ -66,6 +70,28 @@ namespace ProyectoPrensa
             PresionTiempo.ChartAreas[0].AxisY2.Title = "Presión";
 
         }
+        private void Distancia_Click(object sender, EventArgs e)
+        {
+            //Lectura del Sensor ultrasonico
+            serialPort1.Write("2");
+            string LDistancia = serialPort1.ReadLine().ToString();
+            double LDS = Convert.ToDouble(LDistancia);
+            DDist.Text = LDS.ToString();
+        }
+        private void Lectura_Click(object sender, EventArgs e)
+        {
+
+            //Un case diferente en el cual en este caso lee un dato de la entrada analogica A0 y la transfiere por el serial 
+            serialPort1.Write("6");
+            string Dato = serialPort1.ReadLine().ToString();
+            double Sensor = Convert.ToDouble(Dato);
+            double Voltaje = Sensor * 5 / 1023;
+            //Luego ese dato se publica en el Label A0
+            A0.Text = Voltaje.ToString();
+            //PresionTiempo.Series["Presión"].Points.AddXY(Voltaje, i);
+
+        }
+        
         private void PresionTiempo_Click(object sender, EventArgs e)
         {
 
@@ -76,6 +102,8 @@ namespace ProyectoPrensa
         {
 
         }
+
+        
     }
 }
    

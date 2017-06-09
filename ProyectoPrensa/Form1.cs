@@ -32,6 +32,7 @@ namespace ProyectoPrensa
         {
             InitializeComponent();
         }
+        
         //Inicio de la comunicacion Serial al hacer click al boton Inicio
         private void Inicio_Click(object sender, EventArgs e)
         {
@@ -88,7 +89,9 @@ namespace ProyectoPrensa
             double Voltaje = Sensor * 5 / 1023;
             //Luego ese dato se publica en el Label A0
             A0.Text = Voltaje.ToString();
-            //PresionTiempo.Series["Presión"].Points.AddXY(Voltaje, i);
+            int i = 0;
+            PresionTiempo.Series["Presión"].Points.AddXY(i, Voltaje);
+            i = i + 1;
 
         }
         

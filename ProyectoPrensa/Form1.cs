@@ -55,6 +55,7 @@ namespace ProyectoPrensa
             {
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
                 serialPort1.Write("0");
+                PresionTiempo.SaveImage("C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\test.bmp", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
             }
             catch (Exception ex)
             {
@@ -89,6 +90,8 @@ namespace ProyectoPrensa
             double Voltaje = Sensor * 5 / 1023;
             //Luego ese dato se publica en el Label A0
             A0.Text = Voltaje.ToString();
+
+            //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
             int i = 0;
             PresionTiempo.Series["Presión"].Points.AddXY(i, Voltaje);
             i = i + 1;

@@ -33,8 +33,9 @@ namespace ProyectoPrensa
         public class Globales
         {
             public static int i;
-            public static string Dpresion { get; set; }
-
+                       
+            public static string Dpresion= "ITERACION, PRESION";
+            
         }
        
        public Progra()
@@ -88,8 +89,9 @@ namespace ProyectoPrensa
                 
                 //            
                 PresionTiempo.SaveImage(imagen , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
-               // DDist.Text = Globales.i.ToString();
-                File.WriteAllText(datoscsv, Globales.i.ToString());
+               
+                //Guarda el contenido en el csv
+                File.WriteAllText(datoscsv, Globales.Dpresion.ToString());
             }
             catch (Exception ex)
             {
@@ -122,7 +124,10 @@ namespace ProyectoPrensa
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
 
             PresionTiempo.Series["Presión"].Points.AddXY(Globales.i, Voltaje);
-           
+            string delimitador = ",";
+
+            Globales.Dpresion=string.Join(System.Environment.NewLine, Globales.Dpresion,Globales.i);
+            Globales.Dpresion= string.Join(delimitador,Globales.Dpresion,Voltaje);
             Globales.i = Globales.i + 1;
 
 

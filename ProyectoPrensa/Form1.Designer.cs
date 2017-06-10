@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
@@ -91,18 +91,18 @@
             // 
             // PresionTiempo
             // 
-            chartArea2.Name = "ChartArea1";
-            this.PresionTiempo.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.PresionTiempo.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend3);
             this.PresionTiempo.Location = new System.Drawing.Point(90, 113);
             this.PresionTiempo.Name = "PresionTiempo";
             this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Presión";
-            this.PresionTiempo.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Presión";
+            this.PresionTiempo.Series.Add(series3);
             this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
             this.PresionTiempo.TabIndex = 4;
             this.PresionTiempo.Text = "Gráfico de Presión";
@@ -137,6 +137,7 @@
             this.DDist.Size = new System.Drawing.Size(22, 13);
             this.DDist.TabIndex = 8;
             this.DDist.Text = "0.0";
+            this.DDist.Click += new System.EventHandler(this.DDist_Click);
             // 
             // IngresoNombre
             // 

@@ -22,22 +22,41 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
+using CsvHelper;
 
 //Inicio del Codigo
+
 namespace ProyectoPrensa
 {
     public partial class Progra : Form
     {
-        public Progra()
+        public class Globales
+        {
+            public static int i;
+            public static string Dpresion { get; set; }
+
+        }
+       
+       public Progra()
         {
             InitializeComponent();
         }
-        
+     
+        public void Grafico()
+        {
+            PresionTiempo.Series.Clear();
+            PresionTiempo.Series.Add("Presión");
+            PresionTiempo.Series["Presión"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            PresionTiempo.ChartAreas[0].AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY2.Title = "Presión";
+
+        }
         //Inicio de la comunicacion Serial al hacer click al boton Inicio
         private void Inicio_Click(object sender, EventArgs e)
         {
             //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
             serialPort1.Open();
+            
             try
             {
                 //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
@@ -56,14 +75,21 @@ namespace ProyectoPrensa
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
 
                 serialPort1.Write("0");
-                
+                //Donde se le guarda los nombres primero se pone el path donde se guarda 
                 string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
+                //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
-                string extension = ".bmp";
-                string nombre = String.Join(null,Camino,Nombre);
-                nombre = String.Join(null, nombre, extension);
-                this.DDist.Text = nombre;               
-                PresionTiempo.SaveImage(nombre , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
+                string extensioni = ".bmp";
+                string extensiont = ".csv";
+                //Unifica los string primero el elemento de union que es un null y los dos string que se unen y despues la otra union
+                string baseGuardado = String.Join(null,Camino,Nombre);
+                string imagen = String.Join(null, baseGuardado, extensioni);
+                string datoscsv = String.Join(null, baseGuardado, extensiont);
+                
+                //            
+                PresionTiempo.SaveImage(imagen , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
+               // DDist.Text = Globales.i.ToString();
+                File.WriteAllText(datoscsv, Globales.i.ToString());
             }
             catch (Exception ex)
             {
@@ -71,15 +97,7 @@ namespace ProyectoPrensa
             }
             serialPort1.Close();
         }
-        private void Grafico()
-        {
-            PresionTiempo.Series.Clear();
-            PresionTiempo.Series.Add("Presión");
-            PresionTiempo.Series["Presión"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            PresionTiempo.ChartAreas[0].AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            PresionTiempo.ChartAreas[0].AxisY2.Title = "Presión";
-
-        }
+        
         private void Distancia_Click(object sender, EventArgs e)
         {
             //Lectura del Sensor ultrasonico
@@ -87,6 +105,7 @@ namespace ProyectoPrensa
             string LDistancia = serialPort1.ReadLine().ToString();
             double LDS = Convert.ToDouble(LDistancia);
             DDist.Text = LDS.ToString();
+           
         }
         private void Lectura_Click(object sender, EventArgs e)
         {
@@ -98,11 +117,15 @@ namespace ProyectoPrensa
             double Voltaje = Sensor * 5 / 1023;
             //Luego ese dato se publica en el Label A0
             A0.Text = Voltaje.ToString();
-
+           
+               
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
-            int i = 0;
-            PresionTiempo.Series["Presión"].Points.AddXY(i, Voltaje);
-            i = i + 1;
+
+            PresionTiempo.Series["Presión"].Points.AddXY(Globales.i, Voltaje);
+           
+            Globales.i = Globales.i + 1;
+
+
 
         }
         
@@ -117,7 +140,10 @@ namespace ProyectoPrensa
 
         }
 
-        
+        private void DDist_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
    

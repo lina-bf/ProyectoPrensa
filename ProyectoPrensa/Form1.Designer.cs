@@ -42,6 +42,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Distancia = new System.Windows.Forms.Button();
             this.DDist = new System.Windows.Forms.Label();
+            this.IngresoNombre = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,11 +138,19 @@
             this.DDist.TabIndex = 8;
             this.DDist.Text = "0.0";
             // 
+            // IngresoNombre
+            // 
+            this.IngresoNombre.Location = new System.Drawing.Point(613, 277);
+            this.IngresoNombre.Name = "IngresoNombre";
+            this.IngresoNombre.Size = new System.Drawing.Size(203, 20);
+            this.IngresoNombre.TabIndex = 9;
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 444);
+            this.Controls.Add(this.IngresoNombre);
             this.Controls.Add(this.DDist);
             this.Controls.Add(this.Distancia);
             this.Controls.Add(this.textBox1);
@@ -169,6 +178,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Distancia;
         private System.Windows.Forms.Label DDist;
+        private System.Windows.Forms.TextBox IngresoNombre;
     }
 }
 

@@ -54,8 +54,16 @@ namespace ProyectoPrensa
             try
             {
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
+
                 serialPort1.Write("0");
-                PresionTiempo.SaveImage("C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\test.bmp", System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
+                
+                string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
+                string Nombre = IngresoNombre.Text;
+                string extension = ".bmp";
+                string nombre = String.Join(null,Camino,Nombre);
+                nombre = String.Join(null, nombre, extension);
+                this.DDist.Text = nombre;               
+                PresionTiempo.SaveImage(nombre , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
             }
             catch (Exception ex)
             {

@@ -57,11 +57,15 @@ namespace ProyectoPrensa
             {
                 //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
                 serialPort1.Write("1");
-               
+                if (string.IsNullOrEmpty(IngresoNombre.ToString()))
+                {
+                    MessageBox.Show("Ingese Nombre");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                
             }
         }
 

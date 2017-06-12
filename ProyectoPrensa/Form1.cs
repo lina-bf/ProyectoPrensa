@@ -32,9 +32,10 @@ namespace ProyectoPrensa
         public class Globales
         {
             public static int i;                       
-            public static string Dpresion= "ITERACION, PRESION";
+            public static string Dpresion= "ITERACION, PRESION, DISTANCIA";
             public static bool cicloinfinito;
             public static double Voltaje;
+            public static double Distancia;
             
 
 
@@ -68,6 +69,8 @@ namespace ProyectoPrensa
         {
             try
             {
+                //Cancela el ciclo infinito al cerrar el trabajo asincrono 
+
                 this.backgroundWorker1.CancelAsync();
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
 
@@ -78,16 +81,21 @@ namespace ProyectoPrensa
                 string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
                 //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
+                string dist = "dist";
+                string pres ="pres";
                 string extensioni = ".bmp";
                 string extensiont = ".csv";
                 //Unifica los string primero el elemento de union que es un null y los dos string que se unen y despues la otra union
                 string baseGuardado = String.Join(null,Camino,Nombre);
-                string imagen = String.Join(null, baseGuardado, extensioni);
+                string imagenpre = String.Join(null, baseGuardado, dist);
+                imagenpre = String.Join(null, imagenpre, extensioni);
+                string imagendis = String.Join(null, baseGuardado, pres);
+                imagendis = String.Join(null, imagendis, extensioni);
                 string datoscsv = String.Join(null, baseGuardado, extensiont);
                 
                 //   Salva la imagen como tipo .bmp        
-                PresionTiempo.SaveImage(imagen , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
-               
+                PresionTiempo.SaveImage(imagenpre , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
+                DistanciaTiempo.SaveImage(imagendis, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
                 //Guarda el contenido en el csv
                 File.WriteAllText(datoscsv, Globales.Dpresion.ToString());
             }
@@ -98,24 +106,26 @@ namespace ProyectoPrensa
             serialPort1.Close();
         }
         
-        private void Distancia_Click(object sender, EventArgs e)
-        {
-            //Lectura del Sensor ultrasonico
-            serialPort1.Write("2");
-            string LDistancia = serialPort1.ReadLine().ToString();
-            double LDS = Convert.ToDouble(LDistancia);
-            DDist.Text = LDS.ToString();
-           
-        }
+        
         private void Lectura_Click(object sender, EventArgs e)
         {
 
             //Un case diferente en el cual en este caso lee un dato de la entrada analogica A0 y la transfiere por el serial 
             
             Globales.cicloinfinito=true;
-            
-            if(!backgroundWorker1.IsBusy)
-            {
+
+            //Coloca los titulos en los ejes
+            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
+            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
+            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
+            if (!backgroundWorker1.IsBusy)
+            {   
                 backgroundWorker1.RunWorkerAsync();
             }
         }
@@ -135,17 +145,27 @@ namespace ProyectoPrensa
         {
 
         }
-
+        //Lo que realiza en trabajo de fondo 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
             while (Globales.cicloinfinito == true)
             {
+                //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
                 serialPort1.Write("6");
+                //lee el dato de seria
                 string Dato = serialPort1.ReadLine().ToString();
                 double Sensor = Convert.ToDouble(Dato);
                 Globales.Voltaje = Sensor * 5 / 1023;
+                //Actualiza y hace un reporte para actualizar el Form
+                serialPort1.Write("2");
+                string LDistancia = serialPort1.ReadLine().ToString();
+                Globales.Distancia = Convert.ToDouble(LDistancia);
+                
                 backgroundWorker1.ReportProgress(Globales.i);
+                //Avanza el conteo
                 Globales.i = Globales.i + 1;
+                //Revisa si se cancela la actividad 
                 if (backgroundWorker1.CancellationPending)
                 {
                     e.Cancel = true;
@@ -159,19 +179,27 @@ namespace ProyectoPrensa
         {
             //Luego ese dato se publica en el Label A0
             A0.Text = Globales.Voltaje.ToString();
-
+            DDist.Text = Globales.Distancia.ToString();
 
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
 
             PresionTiempo.Series["Presión"].Points.AddXY(Globales.i, Globales.Voltaje);
+            DistanciaTiempo.Series["Distancia"].Points.AddXY(Globales.i, Globales.Distancia);
+            //Va generando el string que se convierte en el csv
             string delimitador = ",";
 
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.i);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
             
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //No se usa en esta parte del codigo ya que nunca llega a "terminar"
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

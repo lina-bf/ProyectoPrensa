@@ -33,39 +33,42 @@ namespace ProyectoPrensa
     {
         public class Globales
         {
-            public static int i;                       
-            public static string Dpresion= "TIEMPO, PRESION, DISTANCIA";
+            public static int i;
+            public static string Dpresion = "TIEMPO, PRESION, DISTANCIA";
             public static bool cicloinfinito;
             public static double Voltaje;
             public static double Distancia;
             public static string Tiempo;
             public static Stopwatch M_Tiempo = new Stopwatch();
+            public static double DistanciaD;
+            public static bool Avance;
+            public static string Escribir;
 
 
-        } 
-       
-       public Progra()
+        }
+
+        public Progra()
         {
             InitializeComponent();
-                      
+
         }
-     
-              //Inicio de la comunicacion Serial al hacer click al boton Inicio
+
+        //Inicio de la comunicacion Serial al hacer click al boton Inicio
         private void Inicio_Click(object sender, EventArgs e)
         {
             //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
             serialPort1.Open();
-            
+
             try
             {
                 //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
                 serialPort1.Write("1");
-               
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
         }
 
@@ -79,26 +82,26 @@ namespace ProyectoPrensa
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
 
                 serialPort1.Write("0");
-                
-                Globales.cicloinfinito =false;
+
+                Globales.cicloinfinito = false;
                 //Donde se le guarda los nombres primero se pone el path donde se guarda 
                 string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
                 //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
                 string dist = "dist";
-                string pres ="pres";
+                string pres = "pres";
                 string extensioni = ".bmp";
                 string extensiont = ".csv";
                 //Unifica los string primero el elemento de union que es un null y los dos string que se unen y despues la otra union
-                string baseGuardado = String.Join(null,Camino,Nombre);
+                string baseGuardado = String.Join(null, Camino, Nombre);
                 string imagenpre = String.Join(null, baseGuardado, dist);
                 imagenpre = String.Join(null, imagenpre, extensioni);
                 string imagendis = String.Join(null, baseGuardado, pres);
                 imagendis = String.Join(null, imagendis, extensioni);
                 string datoscsv = String.Join(null, baseGuardado, extensiont);
-                
+
                 //   Salva la imagen como tipo .bmp        
-                PresionTiempo.SaveImage(imagenpre , System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
+                PresionTiempo.SaveImage(imagenpre, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
                 DistanciaTiempo.SaveImage(imagendis, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Bmp);
                 //Guarda el contenido en el csv
                 File.WriteAllText(datoscsv, Globales.Dpresion.ToString());
@@ -109,14 +112,14 @@ namespace ProyectoPrensa
             }
             serialPort1.Close();
         }
-        
-        
+
+
         private void Lectura_Click(object sender, EventArgs e)
         {
 
             //Un case diferente en el cual en este caso lee un dato de la entrada analogica A0 y la transfiere por el serial 
-            
-            Globales.cicloinfinito=true;
+
+            Globales.cicloinfinito = true;
 
             //Coloca los titulos en los ejes
             PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
@@ -129,17 +132,17 @@ namespace ProyectoPrensa
             DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
             //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
             if (!backgroundWorker1.IsBusy)
-            {   
+            {
                 backgroundWorker1.RunWorkerAsync();
             }
         }
-        
+
         private void PresionTiempo_Click(object sender, EventArgs e)
         {
 
         }
 
-     
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -153,8 +156,10 @@ namespace ProyectoPrensa
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
-            
-            while (Globales.cicloinfinito == true)
+            serialPort1.Write("2");
+            string LDistancia = serialPort1.ReadLine().ToString();
+            Globales.Distancia = Convert.ToDouble(LDistancia);
+            while (Globales.cicloinfinito == true || Globales.Distancia != Globales.DistanciaD)
             {
 
                 Globales.M_Tiempo.Start();
@@ -166,9 +171,9 @@ namespace ProyectoPrensa
                 Globales.Voltaje = Sensor * 5 / 1023;
                 //Actualiza y hace un reporte para actualizar el Form
                 serialPort1.Write("2");
-                string LDistancia = serialPort1.ReadLine().ToString();
+                LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
-               
+
                 backgroundWorker1.ReportProgress(Globales.i);
                 //Avanza el conteo
                 Globales.i = Globales.i + 1;
@@ -178,7 +183,7 @@ namespace ProyectoPrensa
                     e.Cancel = true;
 
                 }
-               
+
             }
         }
 
@@ -199,18 +204,59 @@ namespace ProyectoPrensa
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
-            
+
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
+            serialPort1.Write("9");
+
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void Subir_Click(object sender, EventArgs e)
+        {
+            Globales.Avance = true;
+            Globales.Escribir = "9";
+            if (!backgroundWorker2.IsBusy)
+            {
+                backgroundWorker2.RunWorkerAsync();
+            }
+        }
+        private void Bajar_Click(object sender, EventArgs e)
+        {
+            Globales.Avance = true;
+            Globales.Escribir = "a";
+            if (!backgroundWorker2.IsBusy)
+            {
+                backgroundWorker2.RunWorkerAsync();
+            }
+        }
+
+        private void Parar_Click(object sender, EventArgs e)
+        {
+            this.backgroundWorker2.CancelAsync();
+            Globales.Avance = false;
+            Globales.Escribir = "b";
+            serialPort1.Write(Globales.Escribir);
+        }
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Globales.Avance == true)
+            {
+                serialPort1.Write(Globales.Escribir);
+            }
+
+            if (backgroundWorker2.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+        }
+        
     }
 }
-   

@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
+using System.Diagnostics;
+
 
 //Inicio del Codigo
 
@@ -32,14 +34,15 @@ namespace ProyectoPrensa
         public class Globales
         {
             public static int i;                       
-            public static string Dpresion= "ITERACION, PRESION, DISTANCIA";
+            public static string Dpresion= "TIEMPO, PRESION, DISTANCIA";
             public static bool cicloinfinito;
             public static double Voltaje;
             public static double Distancia;
-            
+            public static string Tiempo;
+            public static Stopwatch M_Tiempo = new Stopwatch();
 
 
-        }
+        } 
        
        public Progra()
         {
@@ -57,10 +60,7 @@ namespace ProyectoPrensa
             {
                 //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
                 serialPort1.Write("1");
-                if (string.IsNullOrEmpty(IngresoNombre.ToString()))
-                {
-                    MessageBox.Show("Ingese Nombre");
-                }
+               
             }
             catch (Exception ex)
             {
@@ -153,8 +153,11 @@ namespace ProyectoPrensa
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
+            
             while (Globales.cicloinfinito == true)
             {
+
+                Globales.M_Tiempo.Start();
                 //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
                 serialPort1.Write("6");
                 //lee el dato de seria
@@ -165,7 +168,7 @@ namespace ProyectoPrensa
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
-                
+               
                 backgroundWorker1.ReportProgress(Globales.i);
                 //Avanza el conteo
                 Globales.i = Globales.i + 1;
@@ -186,13 +189,14 @@ namespace ProyectoPrensa
             DDist.Text = Globales.Distancia.ToString();
 
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
-
-            PresionTiempo.Series["Presión"].Points.AddXY(Globales.i, Globales.Voltaje);
-            DistanciaTiempo.Series["Distancia"].Points.AddXY(Globales.i, Globales.Distancia);
-            //Va generando el string que se convierte en el csv
+            Globales.Tiempo = Globales.M_Tiempo.Elapsed.ToString("mm\\:ss\\.ff");
+            T_transcurrido.Text = Globales.Tiempo.ToString();
+            PresionTiempo.Series["Presión"].Points.AddXY(Globales.Tiempo, Globales.Voltaje);
+            DistanciaTiempo.Series["Distancia"].Points.AddXY(Globales.Tiempo, Globales.Distancia);
+            //Va generando el string que se convierte en el csv.
             string delimitador = ",";
 
-            Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.i);
+            Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
             

@@ -210,7 +210,7 @@ namespace ProyectoPrensa
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
-            serialPort1.Write("9");
+            serialPort1.Write("00");
 
         }
 
@@ -228,14 +228,17 @@ namespace ProyectoPrensa
                 backgroundWorker2.RunWorkerAsync();
             }
         }
-        private void Bajar_Click(object sender, EventArgs e)
+        private void Bajar_Click_1(object sender, EventArgs e)
         {
+
             Globales.Avance = true;
             Globales.Escribir = "a";
+            label4.Text = "RP";
             if (!backgroundWorker2.IsBusy)
             {
                 backgroundWorker2.RunWorkerAsync();
             }
+
         }
 
         private void Parar_Click(object sender, EventArgs e)
@@ -243,20 +246,30 @@ namespace ProyectoPrensa
             this.backgroundWorker2.CancelAsync();
             Globales.Avance = false;
             Globales.Escribir = "b";
-            serialPort1.Write(Globales.Escribir);
+           serialPort1.Write(Globales.Escribir);
         }
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
+           
             while (Globales.Avance == true)
             {
                 serialPort1.Write(Globales.Escribir);
+
+                backgroundWorker2.ReportProgress(Globales.i);
+                Globales.i = Globales.i + 1;
+                if (backgroundWorker2.CancellationPending)
+                {
+                    e.Cancel = true;
+                }
             }
 
-            if (backgroundWorker2.CancellationPending)
-            {
-                e.Cancel = true;
-            }
+            
         }
+        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            
+        }
+
         
     }
 }

@@ -71,6 +71,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.Temp2 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.T1D = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.T2D = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -315,7 +319,7 @@
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Location = new System.Drawing.Point(750, 376);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 67);
+            this.groupBox4.Size = new System.Drawing.Size(200, 42);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             // 
@@ -378,9 +382,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(-3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(148, 13);
+            this.label9.Size = new System.Drawing.Size(142, 13);
             this.label9.TabIndex = 24;
-            this.label9.Text = "Temperatura Prensa Superior:";
+            this.label9.Text = "Temperatura Placa Superior:";
             // 
             // Temp1
             // 
@@ -405,9 +409,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(-3, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(141, 13);
+            this.label11.Size = new System.Drawing.Size(135, 13);
             this.label11.TabIndex = 24;
-            this.label11.Text = "Temperatura Prensa Inferior:";
+            this.label11.Text = "Temperatura Placa Inferior:";
             // 
             // Temp2
             // 
@@ -427,11 +431,47 @@
             this.label12.TabIndex = 24;
             this.label12.Text = "°C";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(252, 405);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(145, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Temperatura  Placa Superior:";
+            // 
+            // T1D
+            // 
+            this.T1D.Location = new System.Drawing.Point(404, 405);
+            this.T1D.Name = "T1D";
+            this.T1D.Size = new System.Drawing.Size(51, 20);
+            this.T1D.TabIndex = 25;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(252, 444);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(135, 13);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Temperatura Placa Inferior:";
+            // 
+            // T2D
+            // 
+            this.T2D.Location = new System.Drawing.Point(404, 447);
+            this.T2D.Name = "T2D";
+            this.T2D.Size = new System.Drawing.Size(51, 20);
+            this.T2D.TabIndex = 27;
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 697);
+            this.Controls.Add(this.T2D);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.T1D);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.Parar);
             this.Controls.Add(this.Bajar);
             this.Controls.Add(this.Subir);
@@ -503,6 +543,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label Temp1;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox T1D;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox T2D;
     }
 }
 

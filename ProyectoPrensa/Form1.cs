@@ -43,7 +43,8 @@ namespace ProyectoPrensa
             public static double DistanciaD;
             public static bool Avance;
             public static string Escribir;
-
+            public static double Temp1;
+            public static double Temp2;
 
         }
 
@@ -156,9 +157,7 @@ namespace ProyectoPrensa
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
-            serialPort1.Write("2");
-            string LDistancia = serialPort1.ReadLine().ToString();
-            Globales.Distancia = Convert.ToDouble(LDistancia);
+            
             while (Globales.cicloinfinito == true || Globales.Distancia != Globales.DistanciaD)
             {
 
@@ -171,9 +170,18 @@ namespace ProyectoPrensa
                 Globales.Voltaje = Sensor * 5 / 1023;
                 //Actualiza y hace un reporte para actualizar el Form
                 serialPort1.Write("2");
-                LDistancia = serialPort1.ReadLine().ToString();
+                string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
-
+                serialPort1.Write("3");
+                string t1 = serialPort1.ReadLine().ToString();
+                Globales.Temp1 = Convert.ToDouble(t1);
+                Globales.Temp1 = Globales.Temp1 * 5 / 1023;
+                serialPort1.Write("4");
+                string t2 = serialPort1.ReadLine().ToString();
+                Globales.Temp2 = Convert.ToDouble(t2);
+                Globales.Temp2 = Globales.Temp2 * 5 / 1023;
+                serialPort1.Write("5");
+                serialPort1.Write(DistanciaMax.ToString());
                 backgroundWorker1.ReportProgress(Globales.i);
                 //Avanza el conteo
                 Globales.i = Globales.i + 1;
@@ -192,7 +200,8 @@ namespace ProyectoPrensa
             //Luego ese dato se publica en el Label A0
             A0.Text = Globales.Voltaje.ToString();
             DDist.Text = Globales.Distancia.ToString();
-
+            Temp1.Text = Globales.Temp1.ToString();
+            Temp2.Text = Globales.Temp2.ToString();
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
             Globales.Tiempo = Globales.M_Tiempo.Elapsed.ToString("mm\\:ss\\.ff");
             T_transcurrido.Text = Globales.Tiempo.ToString();

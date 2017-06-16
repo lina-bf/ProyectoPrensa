@@ -124,9 +124,9 @@ namespace ProyectoPrensa
                 string extensiont = ".csv";
                 //Unifica los string primero el elemento de union que es un null y los dos string que se unen y despues la otra union
                 string baseGuardado = String.Join(null, Camino, Nombre);
-                string imagenpre = String.Join(null, baseGuardado, dist);
+                string imagenpre = String.Join(null, baseGuardado, pres);
                 imagenpre = String.Join(null, imagenpre, extensioni);
-                string imagendis = String.Join(null, baseGuardado, pres);
+                string imagendis = String.Join(null, baseGuardado, dist);
                 imagendis = String.Join(null, imagendis, extensioni);
                 string datoscsv = String.Join(null, baseGuardado, extensiont);
 
@@ -169,10 +169,10 @@ namespace ProyectoPrensa
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
-                string rem = DistanciaMax.Text;
-                if (DistanciaMax.Text != "")
+                DDist.Text = LDistancia.ToString();
+               if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text)<Convert.ToSingle(1000))
                 {
-                    if (Globales.Distancia > Convert.ToDouble(rem))
+                    if (Globales.Distancia < Convert.ToDouble(DistanciaMax.Text))
                     {
                         Globales.Direccion = "Subir";
                     }
@@ -181,14 +181,23 @@ namespace ProyectoPrensa
                         Globales.Direccion = "Bajar";
                     }
                     //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
-                    if (!backgroundWorker1.IsBusy)
+                    if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
                     {
                         backgroundWorker1.RunWorkerAsync();
                     }
+               
                 }
                 else
                 {
-                    MessageBox.Show("Debe ingresar una distancia máxima");
+                    if (Convert.ToSingle(DistanciaMax.Text) < 1000)
+                    {
+
+                        MessageBox.Show("Error en la distancia máxima");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Distancia fuera del rango");
+                    }
                 }
             }
         }
@@ -308,7 +317,6 @@ namespace ProyectoPrensa
 
             Globales.Avance = true;
             Globales.Escribir = "a";
-            label4.Text = "RP";
             if (!backgroundWorker2.IsBusy)
             {
                 backgroundWorker2.RunWorkerAsync();

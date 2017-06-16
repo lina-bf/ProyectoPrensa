@@ -60,9 +60,13 @@ namespace ProyectoPrensa
         private void PuertoCOM_DropDown(object sender, EventArgs e)
         {
             PuertoCOM.DataSource = SerialPort.GetPortNames();
-            if(PuertoCOM.SelectedItem==null)
-                {
+            if (PuertoCOM.SelectedItem == null)
+            {
                 MessageBox.Show("No se encuentran puertos");
+            }
+            else
+            {
+                serialPort1.PortName = PuertoCOM.SelectedItem.ToString();
             }
         }
         
@@ -82,7 +86,7 @@ namespace ProyectoPrensa
             }
             else
             {
-                serialPort1.PortName=PuertoCOM.SelectedItem.ToString();
+                
                 serialPort1.Open();
                 try
                 {
@@ -143,43 +147,49 @@ namespace ProyectoPrensa
         private void Lectura_Click(object sender, EventArgs e)
         {
 
-            //Un case diferente en el cual en este caso lee un dato de la entrada analogica A0 y la transfiere por el serial 
-
-            Globales.cicloinfinito = true;
-
-            //Coloca los titulos en los ejes
-            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
-            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
-            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-            //Revision si debe subir o bajar
-            serialPort1.Write("2");
-            string LDistancia = serialPort1.ReadLine().ToString();
-            Globales.Distancia = Convert.ToDouble(LDistancia);
-            string rem = DistanciaMax.Text;
-            if (DistanciaMax.Text != "")
+            if (T1D.Text == "" || T2D.Text == "")
             {
-                if (Globales.Distancia > Convert.ToDouble(rem))
-                {
-                    Globales.Direccion = "Subir";
-                }
-                else
-                {
-                    Globales.Direccion = "Bajar";
-                }
-                //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
-                if (!backgroundWorker1.IsBusy)
-                {
-                    backgroundWorker1.RunWorkerAsync();
-                }
+                MessageBox.Show("Favor Ingresar valores de temperatura deseados");
+
             }
             else
             {
-                MessageBox.Show("Debe ingresar una distancia máxima");
+                Globales.cicloinfinito = true;
+
+                //Coloca los titulos en los ejes
+                PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+                PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
+                PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+                PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+                DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+                DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
+                DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+                DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+                //Revision si debe subir o bajar
+                serialPort1.Write("2");
+                string LDistancia = serialPort1.ReadLine().ToString();
+                Globales.Distancia = Convert.ToDouble(LDistancia);
+                string rem = DistanciaMax.Text;
+                if (DistanciaMax.Text != "")
+                {
+                    if (Globales.Distancia > Convert.ToDouble(rem))
+                    {
+                        Globales.Direccion = "Subir";
+                    }
+                    else
+                    {
+                        Globales.Direccion = "Bajar";
+                    }
+                    //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
+                    if (!backgroundWorker1.IsBusy)
+                    {
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Debe ingresar una distancia máxima");
+                }
             }
         }
 
@@ -218,19 +228,15 @@ namespace ProyectoPrensa
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
                 serialPort1.Write("3");
-                string t1 = serialPort1.ReadLine().ToString();
-                Globales.Temp1 = Convert.ToDouble(t1);
-                Globales.Temp1 = Globales.Temp1 * 5 / 1023;
-                Globales.Temp1 = Globales.Temp1 * 121.38 - 76.748;
-                serialPort1.Write("4");
-                string t2 = serialPort1.ReadLine().ToString();
-                Globales.Temp2 = Convert.ToDouble(t2);
-                Globales.Temp2 = Globales.Temp2 * 5 / 1023;
-                Globales.Temp2 = Globales.Temp2*86.612-11.671;
-                serialPort1.Write("7");
                 serialPort1.Write(T1D.ToString());
-                serialPort1.Write("8");
+                serialPort1.Write("4");
                 serialPort1.Write(T2D.ToString());
+                serialPort1.Write("7");
+                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                serialPort1.Write("8");
+                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                
+                
                 backgroundWorker1.ReportProgress(Globales.i);
                 if (Globales.Direccion == "Subir")
                 {

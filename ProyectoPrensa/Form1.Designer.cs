@@ -76,6 +76,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.T2D = new System.Windows.Forms.TextBox();
             this.PuertoCOM = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -103,10 +104,6 @@
             this.Terminar.Text = "Terminar";
             this.Terminar.UseVisualStyleBackColor = true;
             this.Terminar.Click += new System.EventHandler(this.Terminar_Click);
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.PortName = "COM3";
             // 
             // Lectura
             // 
@@ -148,7 +145,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(1048, 560);
+            this.textBox1.Location = new System.Drawing.Point(1048, 464);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -169,7 +166,7 @@
             // 
             // IngresoNombre
             // 
-            this.IngresoNombre.Location = new System.Drawing.Point(15, 236);
+            this.IngresoNombre.Location = new System.Drawing.Point(15, 286);
             this.IngresoNombre.Name = "IngresoNombre";
             this.IngresoNombre.Size = new System.Drawing.Size(135, 20);
             this.IngresoNombre.TabIndex = 9;
@@ -185,7 +182,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 210);
+            this.label1.Location = new System.Drawing.Point(12, 260);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 13);
             this.label1.TabIndex = 10;
@@ -382,7 +379,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 271);
+            this.label8.Location = new System.Drawing.Point(12, 321);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(145, 13);
             this.label8.TabIndex = 20;
@@ -390,14 +387,14 @@
             // 
             // DistanciaMax
             // 
-            this.DistanciaMax.Location = new System.Drawing.Point(12, 304);
+            this.DistanciaMax.Location = new System.Drawing.Point(12, 354);
             this.DistanciaMax.Name = "DistanciaMax";
             this.DistanciaMax.Size = new System.Drawing.Size(135, 20);
             this.DistanciaMax.TabIndex = 21;
             // 
             // Bajar
             // 
-            this.Bajar.Location = new System.Drawing.Point(12, 410);
+            this.Bajar.Location = new System.Drawing.Point(12, 460);
             this.Bajar.Name = "Bajar";
             this.Bajar.Size = new System.Drawing.Size(145, 57);
             this.Bajar.TabIndex = 0;
@@ -407,7 +404,7 @@
             // 
             // Subir
             // 
-            this.Subir.Location = new System.Drawing.Point(12, 345);
+            this.Subir.Location = new System.Drawing.Point(12, 395);
             this.Subir.Name = "Subir";
             this.Subir.Size = new System.Drawing.Size(145, 59);
             this.Subir.TabIndex = 22;
@@ -425,7 +422,7 @@
             // 
             // Parar
             // 
-            this.Parar.Location = new System.Drawing.Point(12, 482);
+            this.Parar.Location = new System.Drawing.Point(12, 532);
             this.Parar.Name = "Parar";
             this.Parar.Size = new System.Drawing.Size(145, 57);
             this.Parar.TabIndex = 23;
@@ -468,16 +465,27 @@
             // PuertoCOM
             // 
             this.PuertoCOM.FormattingEnabled = true;
-            this.PuertoCOM.Location = new System.Drawing.Point(307, 527);
+            this.PuertoCOM.Location = new System.Drawing.Point(12, 227);
             this.PuertoCOM.Name = "PuertoCOM";
             this.PuertoCOM.Size = new System.Drawing.Size(121, 21);
             this.PuertoCOM.TabIndex = 28;
+            this.PuertoCOM.DropDown += new System.EventHandler(this.PuertoCOM_DropDown);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(12, 211);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(106, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Selección de Puerto:";
             // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1236, 697);
+            this.ClientSize = new System.Drawing.Size(1236, 599);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.PuertoCOM);
             this.Controls.Add(this.T2D);
             this.Controls.Add(this.label14);
@@ -502,6 +510,7 @@
             this.Controls.Add(this.Inicio);
             this.Name = "Progra";
             this.Text = "Automatización de Prensa";
+            this.Load += new System.EventHandler(this.Progra_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -559,6 +568,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox T2D;
         private System.Windows.Forms.ComboBox PuertoCOM;
+        private System.Windows.Forms.Label label15;
     }
 }
 

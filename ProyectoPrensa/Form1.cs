@@ -46,6 +46,7 @@ namespace ProyectoPrensa
             public static double Temp1;
             public static double Temp2;
             public static string Direccion;
+            public static string Puerto;
 
         }
        
@@ -56,19 +57,32 @@ namespace ProyectoPrensa
         }
 
         //Inicio de la comunicacion Serial al hacer click al boton Inicio
+        private void PuertoCOM_DropDown(object sender, EventArgs e)
+        {
+            PuertoCOM.DataSource = SerialPort.GetPortNames();
+            if(PuertoCOM.SelectedItem==null)
+                {
+                MessageBox.Show("No se encuentran puertos");
+            }
+        }
+        
         private void Inicio_Click(object sender, EventArgs e)
         {
             //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
+            
             
             if (IngresoNombre.Text == "")
             {
                 MessageBox.Show("Ingrese el nombre del archivo");
                 
             }
-            
+            if (PuertoCOM.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione priemero el puerto a conectar");
+            }
             else
             {
-                //serialPort1.Por;
+                serialPort1.PortName=PuertoCOM.SelectedItem.ToString();
                 serialPort1.Open();
                 try
                 {
@@ -96,8 +110,8 @@ namespace ProyectoPrensa
                 serialPort1.Write("0");
 
                 //Donde se le guarda los nombres primero se pone el path donde se guarda 
-                //string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
                 string Camino = Path.GetDirectoryName(Application.ExecutablePath);
+                Camino = string.Join(null, Camino, "/");
                 //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
                 string dist = "dist";
@@ -326,6 +340,11 @@ namespace ProyectoPrensa
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Progra_Load(object sender, EventArgs e)
         {
 
         }

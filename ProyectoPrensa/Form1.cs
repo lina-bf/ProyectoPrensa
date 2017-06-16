@@ -63,6 +63,7 @@ namespace ProyectoPrensa
             if (IngresoNombre.Text == "")
             {
                 MessageBox.Show("Ingrese el nombre del archivo");
+                
             }
             
             else
@@ -96,7 +97,7 @@ namespace ProyectoPrensa
 
                 //Donde se le guarda los nombres primero se pone el path donde se guarda 
                 //string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
-                string Camino = "C:\\";
+                string Camino = Path.GetDirectoryName(Application.ExecutablePath);
                 //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
                 string dist = "dist";

@@ -294,7 +294,7 @@ namespace ProyectoPrensa
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
 
-            
+            serialPort1.Write("9");
 
         }
 
@@ -350,7 +350,7 @@ namespace ProyectoPrensa
         }
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            
+            DDist.Text = Globales.Distancia.ToString();
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -361,6 +361,57 @@ namespace ProyectoPrensa
         private void Progra_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Calentar_Click(object sender, EventArgs e)
+        {
+            serialPort1.Write("3");
+            serialPort1.Write(T1D.ToString());
+            serialPort1.Write("4");
+            serialPort1.Write(T2D.ToString());
+            serialPort1.Write("7");
+            Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+            serialPort1.Write("8");
+            Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+            if (!backgroundWorker3.IsBusy)
+            {
+                Globales.i = 0;
+                backgroundWorker3.RunWorkerAsync();
+            }
+            
+        }
+
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (T1D.Text != Globales.Temp1.ToString() || T2D.Text != Globales.Temp2.ToString())
+            {
+                serialPort1.Write("3");
+                serialPort1.Write(T1D.ToString());
+                serialPort1.Write("4");
+                serialPort1.Write(T2D.ToString());
+                serialPort1.Write("7");
+                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                serialPort1.Write("8");
+                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                backgroundWorker3.ReportProgress(Globales.i);
+                Globales.i = Globales.i + 1;
+                if (backgroundWorker3.CancellationPending)
+                {
+                    e.Cancel = true;
+                }
+            }
+           
+        }
+
+        private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Temp1.Text = Globales.Temp1.ToString();
+            Temp2.Text = Globales.Temp2.ToString();
+        }
+
+        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Temperatura Alcanzada");
         }
     }
 }

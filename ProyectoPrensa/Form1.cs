@@ -34,7 +34,7 @@ namespace ProyectoPrensa
         public class Globales
         {
             public static int i;
-            public static string Dpresion = "TIEMPO, PRESION, DISTANCIA";
+            public static string Dpresion = "TIEMPO, PRESION, DISTANCIA, TEMPERATURA PLACA SUPERIOR, TEMPERATURA PLACA INFERIOR";
             public static bool cicloinfinito;
             public static double Voltaje;
             public static double Distancia;
@@ -45,31 +45,41 @@ namespace ProyectoPrensa
             public static string Escribir;
             public static double Temp1;
             public static double Temp2;
+            public static string Direccion;
 
         }
-
+       
         public Progra()
         {
             InitializeComponent();
-
+            
         }
 
         //Inicio de la comunicacion Serial al hacer click al boton Inicio
         private void Inicio_Click(object sender, EventArgs e)
         {
             //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
-            serialPort1.Open();
-
-            try
+            
+            if (IngresoNombre.Text == "")
             {
-                //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
-                serialPort1.Write("1");
-
+                MessageBox.Show("Ingrese el nombre del archivo");
             }
-            catch (Exception ex)
+            
+            else
             {
-                MessageBox.Show(ex.Message);
+                //serialPort1.Por;
+                serialPort1.Open();
+                try
+                {
+                    //Envia un 1 al puerto serial, el cual dentro del Case empieza la conexion oficial
+                    serialPort1.Write("1");
 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
             }
         }
 
@@ -77,16 +87,16 @@ namespace ProyectoPrensa
         {
             try
             {
-                //Cancela el ciclo infinito al cerrar el trabajo asincrono 
-
                 this.backgroundWorker1.CancelAsync();
+                Globales.cicloinfinito = false;
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
-
+                serialPort1.Write("b");
+                System.Threading.Thread.Sleep(20);
                 serialPort1.Write("0");
 
-                Globales.cicloinfinito = false;
                 //Donde se le guarda los nombres primero se pone el path donde se guarda 
-                string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
+                //string Camino = "C:\\Users\\Lina\\Documents\\GitHub\\PRENSA_I_SEM_2017\\";
+                string Camino = "C:\\";
                 //De la zona de ingreso del nombre lee donde guarda el nombre 
                 string Nombre = IngresoNombre.Text;
                 string dist = "dist";
@@ -131,10 +141,30 @@ namespace ProyectoPrensa
             DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
             DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-            //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
-            if (!backgroundWorker1.IsBusy)
+            //Revision si debe subir o bajar
+            serialPort1.Write("2");
+            string LDistancia = serialPort1.ReadLine().ToString();
+            Globales.Distancia = Convert.ToDouble(LDistancia);
+            string rem = DistanciaMax.Text;
+            if (DistanciaMax.Text != "")
             {
-                backgroundWorker1.RunWorkerAsync();
+                if (Globales.Distancia > Convert.ToDouble(rem))
+                {
+                    Globales.Direccion = "Subir";
+                }
+                else
+                {
+                    Globales.Direccion = "Bajar";
+                }
+                //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
+                if (!backgroundWorker1.IsBusy)
+                {
+                    backgroundWorker1.RunWorkerAsync();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar una distancia máxima");
             }
         }
 
@@ -158,7 +188,7 @@ namespace ProyectoPrensa
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
             
-            while (Globales.cicloinfinito == true || Globales.Distancia != Globales.DistanciaD)
+            while (Globales.cicloinfinito == true && Globales.Distancia != Globales.DistanciaD)
             {
 
                 Globales.M_Tiempo.Start();
@@ -176,13 +206,24 @@ namespace ProyectoPrensa
                 string t1 = serialPort1.ReadLine().ToString();
                 Globales.Temp1 = Convert.ToDouble(t1);
                 Globales.Temp1 = Globales.Temp1 * 5 / 1023;
+                Globales.Temp1 = Globales.Temp1 * 121.38 - 76.748;
                 serialPort1.Write("4");
                 string t2 = serialPort1.ReadLine().ToString();
                 Globales.Temp2 = Convert.ToDouble(t2);
                 Globales.Temp2 = Globales.Temp2 * 5 / 1023;
-                serialPort1.Write("5");
-                serialPort1.Write(DistanciaMax.ToString());
+                Globales.Temp2 = Globales.Temp2*86.612-11.671;
+                serialPort1.Write("7");
+                serialPort1.Write(T1D.ToString());
+                serialPort1.Write("8");
+                serialPort1.Write(T2D.ToString());
                 backgroundWorker1.ReportProgress(Globales.i);
+                if (Globales.Direccion == "Subir")
+                {
+                    serialPort1.Write("9");
+                }
+                else {
+                    serialPort1.Write("a");
+                }
                 //Avanza el conteo
                 Globales.i = Globales.i + 1;
                 //Revisa si se cancela la actividad 
@@ -193,6 +234,7 @@ namespace ProyectoPrensa
                 }
 
             }
+            serialPort1.Write("b");
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -213,13 +255,16 @@ namespace ProyectoPrensa
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp1);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp2);
 
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
-            serialPort1.Write("00");
+
+            
 
         }
 
@@ -279,6 +324,9 @@ namespace ProyectoPrensa
             
         }
 
-        
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

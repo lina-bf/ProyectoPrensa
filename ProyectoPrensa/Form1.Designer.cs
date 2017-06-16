@@ -59,22 +59,23 @@
             this.T_transcurrido = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Temp2 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Temp1 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.DistanciaMax = new System.Windows.Forms.TextBox();
             this.Bajar = new System.Windows.Forms.Button();
             this.Subir = new System.Windows.Forms.Button();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.Parar = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.Temp1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.Temp2 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.T1D = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.T2D = new System.Windows.Forms.TextBox();
+            this.PuertoCOM = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -241,9 +242,10 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(159, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 15;
-            this.label5.Text = "MPa(?)";
+            this.label5.Text = "MPa";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // groupBox1
             // 
@@ -323,6 +325,60 @@
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(179, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(24, 13);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "°C  ";
+            // 
+            // Temp2
+            // 
+            this.Temp2.AutoSize = true;
+            this.Temp2.Location = new System.Drawing.Point(135, 16);
+            this.Temp2.Name = "Temp2";
+            this.Temp2.Size = new System.Drawing.Size(22, 13);
+            this.Temp2.TabIndex = 24;
+            this.Temp2.Text = "0.0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(-3, 16);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(135, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Temperatura Placa Inferior:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(179, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(27, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "°C   ";
+            // 
+            // Temp1
+            // 
+            this.Temp1.AutoSize = true;
+            this.Temp1.Location = new System.Drawing.Point(135, 0);
+            this.Temp1.Name = "Temp1";
+            this.Temp1.Size = new System.Drawing.Size(22, 13);
+            this.Temp1.TabIndex = 24;
+            this.Temp1.Text = "0.0";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(-3, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(142, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Temperatura Placa Superior:";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -377,68 +433,14 @@
             this.Parar.UseVisualStyleBackColor = true;
             this.Parar.Click += new System.EventHandler(this.Parar_Click);
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(-3, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(142, 13);
-            this.label9.TabIndex = 24;
-            this.label9.Text = "Temperatura Placa Superior:";
-            // 
-            // Temp1
-            // 
-            this.Temp1.AutoSize = true;
-            this.Temp1.Location = new System.Drawing.Point(151, 0);
-            this.Temp1.Name = "Temp1";
-            this.Temp1.Size = new System.Drawing.Size(22, 13);
-            this.Temp1.TabIndex = 24;
-            this.Temp1.Text = "0.0";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(179, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(18, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "°C";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(-3, 16);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(135, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Temperatura Placa Inferior:";
-            // 
-            // Temp2
-            // 
-            this.Temp2.AutoSize = true;
-            this.Temp2.Location = new System.Drawing.Point(151, 16);
-            this.Temp2.Name = "Temp2";
-            this.Temp2.Size = new System.Drawing.Size(22, 13);
-            this.Temp2.TabIndex = 24;
-            this.Temp2.Text = "0.0";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(179, 16);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(18, 13);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "°C";
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(252, 405);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(145, 13);
+            this.label13.Size = new System.Drawing.Size(142, 13);
             this.label13.TabIndex = 24;
-            this.label13.Text = "Temperatura  Placa Superior:";
+            this.label13.Text = "Temperatura Placa Superior:";
             // 
             // T1D
             // 
@@ -450,7 +452,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(252, 444);
+            this.label14.Location = new System.Drawing.Point(252, 435);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(135, 13);
             this.label14.TabIndex = 26;
@@ -458,16 +460,25 @@
             // 
             // T2D
             // 
-            this.T2D.Location = new System.Drawing.Point(404, 447);
+            this.T2D.Location = new System.Drawing.Point(404, 432);
             this.T2D.Name = "T2D";
             this.T2D.Size = new System.Drawing.Size(51, 20);
             this.T2D.TabIndex = 27;
+            // 
+            // PuertoCOM
+            // 
+            this.PuertoCOM.FormattingEnabled = true;
+            this.PuertoCOM.Location = new System.Drawing.Point(307, 527);
+            this.PuertoCOM.Name = "PuertoCOM";
+            this.PuertoCOM.Size = new System.Drawing.Size(121, 21);
+            this.PuertoCOM.TabIndex = 28;
             // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 697);
+            this.Controls.Add(this.PuertoCOM);
             this.Controls.Add(this.T2D);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.T1D);
@@ -547,6 +558,7 @@
         private System.Windows.Forms.TextBox T1D;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox T2D;
+        private System.Windows.Forms.ComboBox PuertoCOM;
     }
 }
 

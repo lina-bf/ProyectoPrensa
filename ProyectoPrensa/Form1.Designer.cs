@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -77,7 +77,6 @@
             this.T2D = new System.Windows.Forms.TextBox();
             this.PuertoCOM = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.SoloLectura = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -127,18 +126,18 @@
             // 
             // PresionTiempo
             // 
-            chartArea3.Name = "ChartArea1";
-            this.PresionTiempo.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.PresionTiempo.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend1);
             this.PresionTiempo.Location = new System.Drawing.Point(750, 24);
             this.PresionTiempo.Name = "PresionTiempo";
             this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Presión";
-            this.PresionTiempo.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Presión";
+            this.PresionTiempo.Series.Add(series1);
             this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
             this.PresionTiempo.TabIndex = 4;
             this.PresionTiempo.Text = "Gráfico de Presión";
@@ -192,18 +191,18 @@
             // 
             // DistanciaTiempo
             // 
-            chartArea4.Name = "ChartArea1";
-            this.DistanciaTiempo.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.DistanciaTiempo.Legends.Add(legend4);
+            chartArea2.Name = "ChartArea1";
+            this.DistanciaTiempo.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.DistanciaTiempo.Legends.Add(legend2);
             this.DistanciaTiempo.Location = new System.Drawing.Point(255, 24);
             this.DistanciaTiempo.Name = "DistanciaTiempo";
             this.DistanciaTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "Distancia";
-            this.DistanciaTiempo.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Distancia";
+            this.DistanciaTiempo.Series.Add(series2);
             this.DistanciaTiempo.Size = new System.Drawing.Size(436, 300);
             this.DistanciaTiempo.TabIndex = 11;
             this.DistanciaTiempo.Text = "DistanciaTiempo";
@@ -481,22 +480,11 @@
             this.label15.TabIndex = 29;
             this.label15.Text = "Selección de Puerto:";
             // 
-            // SoloLectura
-            // 
-            this.SoloLectura.Location = new System.Drawing.Point(256, 464);
-            this.SoloLectura.Name = "SoloLectura";
-            this.SoloLectura.Size = new System.Drawing.Size(138, 57);
-            this.SoloLectura.TabIndex = 30;
-            this.SoloLectura.Text = "Lectura de Datos";
-            this.SoloLectura.UseVisualStyleBackColor = true;
-            this.SoloLectura.Click += new System.EventHandler(this.SoloLectura_Click);
-            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 599);
-            this.Controls.Add(this.SoloLectura);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.PuertoCOM);
             this.Controls.Add(this.T2D);
@@ -581,7 +569,6 @@
         private System.Windows.Forms.TextBox T2D;
         private System.Windows.Forms.ComboBox PuertoCOM;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button SoloLectura;
     }
 }
 

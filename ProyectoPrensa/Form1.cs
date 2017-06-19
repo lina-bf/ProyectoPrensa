@@ -214,7 +214,7 @@ namespace ProyectoPrensa
             Globales.cicloinfinito = true;
             MessageBox.Show(Globales.Distancia.ToString());
             MessageBox.Show(DistanciaMax.Text);
-            if (Globales.Distancia < Convert.ToDouble(DistanciaMax.Text))
+            if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
 
             {
                 MessageBox.Show("Estoy borracho");
@@ -226,7 +226,7 @@ namespace ProyectoPrensa
             
             
                         //Revision si debe subir o bajar
-            while (Globales.cicloinfinito == true && Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
+            while (true)
             {
                 Globales.M_Tiempo.Start();
                 //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
@@ -258,7 +258,11 @@ namespace ProyectoPrensa
                 if (backgroundWorker1.CancellationPending)
                 {
                     e.Cancel = true;
-
+                }
+                
+                if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
+                {
+                    break;
                 }
 
             }
@@ -363,32 +367,7 @@ namespace ProyectoPrensa
 
         }
 
-        private void SoloLectura_Click(object sender, EventArgs e)
-        {
-            //Coloca los titulos en los ejes
-            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
-            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
-            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-            serialPort1.Write("2");
-            string LDistancia = serialPort1.ReadLine().ToString();
-            Globales.Distancia = Convert.ToDouble(LDistancia);
-            DDist.Text = LDistancia.ToString();
-            if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(1000))
-            {
-                
-
-                if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
-                {
-                    
-                    backgroundWorker1.RunWorkerAsync();
-                }
-            }
-        }
+       
     }
 }
 

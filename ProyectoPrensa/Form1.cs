@@ -257,11 +257,13 @@ namespace ProyectoPrensa
                 //Revisa si se cancela la actividad 
                 if (backgroundWorker1.CancellationPending)
                 {
+                    MessageBox.Show("De casualidad");
                     e.Cancel = true;
                 }
                 
                 if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
                 {
+                    MessageBox.Show("Deberia romper el ciclo");
                     break;
                 }
 

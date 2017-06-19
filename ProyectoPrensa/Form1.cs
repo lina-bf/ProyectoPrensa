@@ -45,7 +45,6 @@ namespace ProyectoPrensa
             public static string Escribir;
             public static double Temp1;
             public static double Temp2;
-            public static string Direccion;
             public static string Puerto;
 
         }
@@ -146,7 +145,15 @@ namespace ProyectoPrensa
 
         private void Lectura_Click(object sender, EventArgs e)
         {
-
+            //Coloca los titulos en los ejes
+            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
+            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
+            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
             if (T1D.Text == "" || T2D.Text == "")
             {
                 MessageBox.Show("Favor Ingresar valores de temperatura deseados");
@@ -154,28 +161,16 @@ namespace ProyectoPrensa
             }
             else
             {
-                Globales.cicloinfinito = true;
 
-                //Coloca los titulos en los ejes
-                PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-                PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
-                PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-                PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-                DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-                DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
-                DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-                DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
-                //Revision si debe subir o bajar
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
                 DDist.Text = LDistancia.ToString();
                 if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(1000))
                 {
-                    
+
                     if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
                     {
-                        MessageBox.Show("entroaqui");
                         backgroundWorker1.RunWorkerAsync();
                     };
 
@@ -215,45 +210,50 @@ namespace ProyectoPrensa
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
 
-            while (Globales.cicloinfinito == true || Globales.Distancia<=Convert.ToDouble(DistanciaMax.Text))
+            Globales.cicloinfinito = true;
+            MessageBox.Show(Globales.Distancia.ToString());
+            MessageBox.Show(DistanciaMax.Text);
+            
+                        //Revision si debe subir o bajar
+            while (Globales.cicloinfinito == true || Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
             {
-                
-                    Globales.M_Tiempo.Start();
-                    //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
-                    serialPort1.Write("6");
+
+                MessageBox.Show("Estoydentro");
+                Globales.M_Tiempo.Start();
+                //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
+                serialPort1.Write("6");
                 //lee el dato de serial
-                
-                    string Dato = serialPort1.ReadLine().ToString();
-                    double Sensor = Convert.ToDouble(Dato);
-                    Globales.Voltaje = Sensor * 5 / 1023;
-                    //Actualiza y hace un reporte para actualizar el Form
-                    serialPort1.Write("2");
-                    string LDistancia = serialPort1.ReadLine().ToString();
-                    Globales.Distancia = Convert.ToDouble(LDistancia);
-                    serialPort1.Write("3");
-                    serialPort1.Write(T1D.ToString());
-                    serialPort1.Write("4");
-                    serialPort1.Write(T2D.ToString());
-                    serialPort1.Write("7");
-                    Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                    serialPort1.Write("8");
-                    Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                    serialPort1.Write("a");
 
-                    backgroundWorker1.ReportProgress(Globales.i);                                    
-                    
-                    //Avanza el conteo
-                    Globales.i = Globales.i + 1;
-                    //Revisa si se cancela la actividad 
-                    if (backgroundWorker1.CancellationPending)
-                    {
-                        e.Cancel = true;
+                string Dato = serialPort1.ReadLine().ToString();
+                double Sensor = Convert.ToDouble(Dato);
+                Globales.Voltaje = Sensor * 5 / 1023;
+                //Actualiza y hace un reporte para actualizar el Form
+                serialPort1.Write("2");
+                string LDistancia = serialPort1.ReadLine().ToString();
+                Globales.Distancia = Convert.ToDouble(LDistancia);
+                serialPort1.Write("3");
+                serialPort1.Write(T1D.ToString());
+                serialPort1.Write("4");
+                serialPort1.Write(T2D.ToString());
+                serialPort1.Write("7");
+                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                serialPort1.Write("8");
+                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
 
-                    }
+                backgroundWorker1.ReportProgress(Globales.i);
+
+                //Avanza el conteo
+                Globales.i = Globales.i + 1;
+                //Revisa si se cancela la actividad 
+                if (backgroundWorker1.CancellationPending)
+                {
+                    e.Cancel = true;
 
                 }
+
+            }
+
             
-            serialPort1.Write("b");
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -353,7 +353,32 @@ namespace ProyectoPrensa
 
         }
 
-        
-      
+        private void SoloLectura_Click(object sender, EventArgs e)
+        {
+            //Coloca los titulos en los ejes
+            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
+            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
+            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            serialPort1.Write("2");
+            string LDistancia = serialPort1.ReadLine().ToString();
+            Globales.Distancia = Convert.ToDouble(LDistancia);
+            DDist.Text = LDistancia.ToString();
+            if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(1000))
+            {
+                
+
+                if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
+                {
+                    
+                    backgroundWorker1.RunWorkerAsync();
+                }
+            }
+        }
     }
 }
+

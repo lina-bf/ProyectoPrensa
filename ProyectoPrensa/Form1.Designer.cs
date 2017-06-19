@@ -77,6 +77,7 @@
             this.T2D = new System.Windows.Forms.TextBox();
             this.PuertoCOM = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.SoloLectura = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -480,11 +481,22 @@
             this.label15.TabIndex = 29;
             this.label15.Text = "Selección de Puerto:";
             // 
+            // SoloLectura
+            // 
+            this.SoloLectura.Location = new System.Drawing.Point(256, 464);
+            this.SoloLectura.Name = "SoloLectura";
+            this.SoloLectura.Size = new System.Drawing.Size(138, 57);
+            this.SoloLectura.TabIndex = 30;
+            this.SoloLectura.Text = "Lectura de Datos";
+            this.SoloLectura.UseVisualStyleBackColor = true;
+            this.SoloLectura.Click += new System.EventHandler(this.SoloLectura_Click);
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 599);
+            this.Controls.Add(this.SoloLectura);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.PuertoCOM);
             this.Controls.Add(this.T2D);
@@ -569,6 +581,7 @@
         private System.Windows.Forms.TextBox T2D;
         private System.Windows.Forms.ComboBox PuertoCOM;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button SoloLectura;
     }
 }
 

@@ -214,15 +214,7 @@ namespace ProyectoPrensa
             Globales.cicloinfinito = true;
             MessageBox.Show(Globales.Distancia.ToString());
             MessageBox.Show(DistanciaMax.Text);
-            if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
-
-            {
-                MessageBox.Show("Estoy borracho");
-            }
-            else
-            {
-                MessageBox.Show("Esto deberia suceder");
-            }
+            
             
             
                         //Revision si debe subir o bajar
@@ -236,21 +228,26 @@ namespace ProyectoPrensa
                 string Dato = serialPort1.ReadLine().ToString();
                 double Sensor = Convert.ToDouble(Dato);
                 Globales.Voltaje = Sensor * 5 / 1023;
-                MessageBox.Show(Globales.Voltaje.ToString());
                 //Actualiza y hace un reporte para actualizar el Form
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
+                MessageBox.Show("Sale de la distacia");
                 serialPort1.Write("3");
                 serialPort1.Write(T1D.ToString());
+                MessageBox.Show("Sale del caso 3");
                 serialPort1.Write("4");
                 serialPort1.Write(T2D.ToString());
+                MessageBox.Show("Sale del caso 4");
                 serialPort1.Write("7");
                 Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                MessageBox.Show("sale del 7");
                 serialPort1.Write("8");
                 Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                MessageBox.Show("sake del 8");
                 serialPort1.Write("a");
                 MessageBox.Show(Globales.Temp2.ToString());
+                MessageBox.Show("Oara que avance");
                 backgroundWorker1.ReportProgress(Globales.i);
 
                 //Avanza el conteo

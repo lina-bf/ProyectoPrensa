@@ -217,8 +217,6 @@ namespace ProyectoPrensa
                         //Revision si debe subir o bajar
             while (Globales.cicloinfinito == true || Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
             {
-
-                MessageBox.Show("Estoydentro");
                 Globales.M_Tiempo.Start();
                 //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
                 serialPort1.Write("6");

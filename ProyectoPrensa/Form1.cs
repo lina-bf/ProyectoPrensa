@@ -46,6 +46,7 @@ namespace ProyectoPrensa
             public static double Temp1;
             public static double Temp2;
             public static string Puerto;
+            public static int temporal;
 
         }
 
@@ -326,8 +327,8 @@ namespace ProyectoPrensa
             {
                 serialPort1.Write(Globales.Escribir);
 
-                backgroundWorker2.ReportProgress(Globales.i);
-                Globales.i = Globales.i + 1;
+                backgroundWorker2.ReportProgress(Globales.temporal);
+                Globales.temporal = Globales.temporal +1;
                 if (backgroundWorker2.CancellationPending)
                 {
                     e.Cancel = true;

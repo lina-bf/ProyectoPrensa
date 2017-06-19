@@ -239,7 +239,7 @@ namespace ProyectoPrensa
                 Globales.Temp2 = serialPort1.ReadLine().ToString();
                
                 serialPort1.Write("a");
-                MessageBox.Show(Globales.Temp2.ToString());
+                
                
                 backgroundWorker1.ReportProgress(Globales.i);
 

@@ -212,12 +212,7 @@ namespace ProyectoPrensa
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
 
             Globales.cicloinfinito = true;
-            MessageBox.Show(Globales.Distancia.ToString());
-            MessageBox.Show(DistanciaMax.Text);
             
-            
-            
-                        //Revision si debe subir o bajar
             while (true)
             {
                 Globales.M_Tiempo.Start();

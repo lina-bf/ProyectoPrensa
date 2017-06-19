@@ -236,6 +236,7 @@ namespace ProyectoPrensa
                 string Dato = serialPort1.ReadLine().ToString();
                 double Sensor = Convert.ToDouble(Dato);
                 Globales.Voltaje = Sensor * 5 / 1023;
+                MessageBox.Show(Globales.Voltaje.ToString());
                 //Actualiza y hace un reporte para actualizar el Form
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
@@ -249,7 +250,7 @@ namespace ProyectoPrensa
                 serialPort1.Write("8");
                 Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
                 serialPort1.Write("a");
-
+                MessageBox.Show(Globales.Temp2.ToString());
                 backgroundWorker1.ReportProgress(Globales.i);
 
                 //Avanza el conteo

@@ -49,11 +49,11 @@ namespace ProyectoPrensa
             public static string Puerto;
 
         }
-       
+
         public Progra()
         {
             InitializeComponent();
-            
+
         }
 
         //Inicio de la comunicacion Serial al hacer click al boton Inicio
@@ -69,16 +69,16 @@ namespace ProyectoPrensa
                 serialPort1.PortName = PuertoCOM.SelectedItem.ToString();
             }
         }
-        
+
         private void Inicio_Click(object sender, EventArgs e)
         {
             //Abre el puerto serial 1 el cual esta configurado al COM donde esta conectado el Arduino
-            
-            
+
+
             if (IngresoNombre.Text == "")
             {
                 MessageBox.Show("Ingrese el nombre del archivo");
-                
+
             }
             if (PuertoCOM.SelectedItem == null)
             {
@@ -86,7 +86,7 @@ namespace ProyectoPrensa
             }
             else
             {
-                
+
                 serialPort1.Open();
                 try
                 {
@@ -170,22 +170,15 @@ namespace ProyectoPrensa
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
                 DDist.Text = LDistancia.ToString();
-               if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text)<Convert.ToSingle(1000))
+                if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(1000))
                 {
-                    if (Globales.Distancia < Convert.ToDouble(DistanciaMax.Text))
-                    {
-                        Globales.Direccion = "Subir";
-                    }
-                    else
-                    {
-                        Globales.Direccion = "Bajar";
-                    }
-                    //Inicia el trabajo de fondo donde si no se encuentra ocupado lo inicia
+                    
                     if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
                     {
+                        MessageBox.Show("entroaqui");
                         backgroundWorker1.RunWorkerAsync();
-                    }
-               
+                    };
+
                 }
                 else
                 {
@@ -221,49 +214,45 @@ namespace ProyectoPrensa
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
-            
-            while (Globales.cicloinfinito == true && Globales.Distancia != Globales.DistanciaD)
+
+            while (Globales.cicloinfinito == true || Globales.Distancia<=Convert.ToDouble(DistanciaMax.Text))
             {
-
-                Globales.M_Tiempo.Start();
-                //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
-                serialPort1.Write("6");
-                //lee el dato de seria
-                string Dato = serialPort1.ReadLine().ToString();
-                double Sensor = Convert.ToDouble(Dato);
-                Globales.Voltaje = Sensor * 5 / 1023;
-                //Actualiza y hace un reporte para actualizar el Form
-                serialPort1.Write("2");
-                string LDistancia = serialPort1.ReadLine().ToString();
-                Globales.Distancia = Convert.ToDouble(LDistancia);
-                serialPort1.Write("3");
-                serialPort1.Write(T1D.ToString());
-                serialPort1.Write("4");
-                serialPort1.Write(T2D.ToString());
-                serialPort1.Write("7");
-                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                serialPort1.Write("8");
-                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
                 
+                    Globales.M_Tiempo.Start();
+                    //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
+                    serialPort1.Write("6");
+                //lee el dato de serial
                 
-                backgroundWorker1.ReportProgress(Globales.i);
-                if (Globales.Direccion == "Subir")
-                {
-                    serialPort1.Write("9");
-                }
-                else {
+                    string Dato = serialPort1.ReadLine().ToString();
+                    double Sensor = Convert.ToDouble(Dato);
+                    Globales.Voltaje = Sensor * 5 / 1023;
+                    //Actualiza y hace un reporte para actualizar el Form
+                    serialPort1.Write("2");
+                    string LDistancia = serialPort1.ReadLine().ToString();
+                    Globales.Distancia = Convert.ToDouble(LDistancia);
+                    serialPort1.Write("3");
+                    serialPort1.Write(T1D.ToString());
+                    serialPort1.Write("4");
+                    serialPort1.Write(T2D.ToString());
+                    serialPort1.Write("7");
+                    Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                    serialPort1.Write("8");
+                    Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
                     serialPort1.Write("a");
-                }
-                //Avanza el conteo
-                Globales.i = Globales.i + 1;
-                //Revisa si se cancela la actividad 
-                if (backgroundWorker1.CancellationPending)
-                {
-                    e.Cancel = true;
+
+                    backgroundWorker1.ReportProgress(Globales.i);                                    
+                    
+                    //Avanza el conteo
+                    Globales.i = Globales.i + 1;
+                    //Revisa si se cancela la actividad 
+                    if (backgroundWorker1.CancellationPending)
+                    {
+                        e.Cancel = true;
+
+                    }
 
                 }
-
-            }
+            
             serialPort1.Write("b");
         }
 
@@ -294,7 +283,8 @@ namespace ProyectoPrensa
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
 
-            serialPort1.Write("9");
+            serialPort1.Write("0");
+
 
         }
 
@@ -329,11 +319,11 @@ namespace ProyectoPrensa
             this.backgroundWorker2.CancelAsync();
             Globales.Avance = false;
             Globales.Escribir = "b";
-           serialPort1.Write(Globales.Escribir);
+            serialPort1.Write(Globales.Escribir);
         }
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-           
+
             while (Globales.Avance == true)
             {
                 serialPort1.Write(Globales.Escribir);
@@ -346,7 +336,7 @@ namespace ProyectoPrensa
                 }
             }
 
-            
+
         }
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -363,55 +353,7 @@ namespace ProyectoPrensa
 
         }
 
-        private void Calentar_Click(object sender, EventArgs e)
-        {
-            serialPort1.Write("3");
-            serialPort1.Write(T1D.ToString());
-            serialPort1.Write("4");
-            serialPort1.Write(T2D.ToString());
-            serialPort1.Write("7");
-            Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-            serialPort1.Write("8");
-            Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-            if (!backgroundWorker3.IsBusy)
-            {
-                Globales.i = 0;
-                backgroundWorker3.RunWorkerAsync();
-            }
-            
-        }
-
-        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (T1D.Text != Globales.Temp1.ToString() || T2D.Text != Globales.Temp2.ToString())
-            {
-                serialPort1.Write("3");
-                serialPort1.Write(T1D.ToString());
-                serialPort1.Write("4");
-                serialPort1.Write(T2D.ToString());
-                serialPort1.Write("7");
-                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                serialPort1.Write("8");
-                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                backgroundWorker3.ReportProgress(Globales.i);
-                Globales.i = Globales.i + 1;
-                if (backgroundWorker3.CancellationPending)
-                {
-                    e.Cancel = true;
-                }
-            }
-           
-        }
-
-        private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            Temp1.Text = Globales.Temp1.ToString();
-            Temp2.Text = Globales.Temp2.ToString();
-        }
-
-        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("Temperatura Alcanzada");
-        }
+        
+      
     }
 }

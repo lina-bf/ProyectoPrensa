@@ -214,15 +214,25 @@ namespace ProyectoPrensa
             Globales.cicloinfinito = true;
             MessageBox.Show(Globales.Distancia.ToString());
             MessageBox.Show(DistanciaMax.Text);
+            if (Globales.Distancia < Convert.ToDouble(DistanciaMax.Text))
+
+            {
+                MessageBox.Show("Estoy borracho");
+            }
+            else
+            {
+                MessageBox.Show("Esto deberia suceder");
+            }
+            
             
                         //Revision si debe subir o bajar
-            while (Globales.cicloinfinito == true || Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
+            while (Globales.cicloinfinito == true && Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
             {
                 Globales.M_Tiempo.Start();
                 //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
                 serialPort1.Write("6");
                 //lee el dato de serial
-
+                MessageBox.Show("Dentro");
                 string Dato = serialPort1.ReadLine().ToString();
                 double Sensor = Convert.ToDouble(Dato);
                 Globales.Voltaje = Sensor * 5 / 1023;
@@ -283,7 +293,7 @@ namespace ProyectoPrensa
         {
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
 
-            serialPort1.Write("0");
+            serialPort1.Write("b");
 
 
         }

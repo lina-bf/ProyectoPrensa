@@ -35,7 +35,6 @@ namespace ProyectoPrensa
         {
             public static int i;
             public static string Dpresion = "TIEMPO, PRESION, DISTANCIA, TEMPERATURA PLACA SUPERIOR, TEMPERATURA PLACA INFERIOR";
-            public static bool cicloinfinito;
             public static double Voltaje;
             public static double Distancia;
             public static string Tiempo;
@@ -43,8 +42,8 @@ namespace ProyectoPrensa
             public static double DistanciaD;
             public static bool Avance;
             public static string Escribir;
-            public static double Temp1;
-            public static double Temp2;
+            public static string Temp1;
+            public static string Temp2;
             public static string Puerto;
             public static int temporal;
 
@@ -107,7 +106,7 @@ namespace ProyectoPrensa
             try
             {
                 this.backgroundWorker1.CancelAsync();
-                Globales.cicloinfinito = false;
+                
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
                 serialPort1.Write("b");
                 System.Threading.Thread.Sleep(20);
@@ -211,7 +210,7 @@ namespace ProyectoPrensa
         {
             //Realiza un ciclo infinito hasta que se le de cancelar esto para la adquision de datos
 
-            Globales.cicloinfinito = true;
+            
             
             while (true)
             {
@@ -219,7 +218,7 @@ namespace ProyectoPrensa
                 //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
                 serialPort1.Write("6");
                 //lee el dato de serial
-                MessageBox.Show("Dentro");
+               
                 string Dato = serialPort1.ReadLine().ToString();
                 double Sensor = Convert.ToDouble(Dato);
                 Globales.Voltaje = Sensor * 5 / 1023;
@@ -227,22 +226,21 @@ namespace ProyectoPrensa
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
-                MessageBox.Show("Sale de la distacia");
                 serialPort1.Write("3");
                 serialPort1.Write(T1D.ToString());
-                MessageBox.Show("Sale del caso 3");
+                
                 serialPort1.Write("4");
                 serialPort1.Write(T2D.ToString());
-                MessageBox.Show("Sale del caso 4");
+               
                 serialPort1.Write("7");
-                Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                MessageBox.Show("sale del 7");
+                Globales.Temp1 = serialPort1.ReadLine();
+             
                 serialPort1.Write("8");
-                Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
-                MessageBox.Show("sake del 8");
+                Globales.Temp2 = serialPort1.ReadLine().ToString();
+               
                 serialPort1.Write("a");
                 MessageBox.Show(Globales.Temp2.ToString());
-                MessageBox.Show("Oara que avance");
+               
                 backgroundWorker1.ReportProgress(Globales.i);
 
                 //Avanza el conteo
@@ -250,7 +248,7 @@ namespace ProyectoPrensa
                 //Revisa si se cancela la actividad 
                 if (backgroundWorker1.CancellationPending)
                 {
-                    MessageBox.Show("De casualidad");
+                    
                     e.Cancel = true;
                 }
                 

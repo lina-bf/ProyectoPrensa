@@ -238,6 +238,7 @@ namespace ProyectoPrensa
                 Globales.Temp1 = Convert.ToDouble(serialPort1.ReadLine().ToString());
                 serialPort1.Write("8");
                 Globales.Temp2 = Convert.ToDouble(serialPort1.ReadLine().ToString());
+                serialPort1.Write("a");
 
                 backgroundWorker1.ReportProgress(Globales.i);
 

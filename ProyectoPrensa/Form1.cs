@@ -227,11 +227,11 @@ namespace ProyectoPrensa
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
                 serialPort1.Write("3");
-                serialPort1.Write(T1D.Text);
-                
+                serialPort1.Write(T1D.Text.ToString());
+                MessageBox.Show(T1D.Text);
                 
                 serialPort1.Write("4");
-                serialPort1.Write(T2D.Text);
+                serialPort1.Write(T2D.Text.ToString());
                
                 serialPort1.Write("7");
                 Globales.Temp1 = serialPort1.ReadLine();

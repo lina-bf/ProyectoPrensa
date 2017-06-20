@@ -111,6 +111,8 @@ namespace ProyectoPrensa
                 serialPort1.Write("b");
                 System.Threading.Thread.Sleep(20);
                 serialPort1.Write("0");
+                serialPort1.Write("8");
+                serialPort1.Write("d");
 
                 //Donde se le guarda los nombres primero se pone el path donde se guarda 
                 string Camino = Path.GetDirectoryName(Application.ExecutablePath);
@@ -238,7 +240,7 @@ namespace ProyectoPrensa
                 {
                     serialPort1.Write("8");
                 }
-             
+                
                 serialPort1.Write("4");
                 Globales.Temp2 = serialPort1.ReadLine();
                 if (Convert.ToDouble(Globales.Temp2) < Convert.ToDouble(T2D.Text))
@@ -249,7 +251,7 @@ namespace ProyectoPrensa
                 {
                     serialPort1.Write("d");
                 }
-
+                
 
 
                 serialPort1.Write("a");
@@ -280,6 +282,7 @@ namespace ProyectoPrensa
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //Luego ese dato se publica en el Label A0
+            
             A0.Text = Globales.Voltaje.ToString();
             DDist.Text = Globales.Distancia.ToString();
             Temp1.Text = Globales.Temp1.ToString();
@@ -305,6 +308,8 @@ namespace ProyectoPrensa
             //No se usa en esta parte del codigo ya que nunca llega a "terminar"
 
             serialPort1.Write("b");
+            serialPort1.Write("8");
+            serialPort1.Write("d");
 
 
         }
@@ -318,7 +323,7 @@ namespace ProyectoPrensa
         {
             Globales.Avance = true;
             Globales.Escribir = "9";
-            if (!backgroundWorker2.IsBusy)
+            if (!backgroundWorker2.IsBusy && !backgroundWorker1.IsBusy && !backgroundWorker3.IsBusy)
             {
                 backgroundWorker2.RunWorkerAsync();
             }
@@ -328,7 +333,7 @@ namespace ProyectoPrensa
 
             Globales.Avance = true;
             Globales.Escribir = "a";
-            if (!backgroundWorker2.IsBusy)
+            if (!backgroundWorker2.IsBusy&& !backgroundWorker1.IsBusy&&!backgroundWorker3.IsBusy)
             {
                 backgroundWorker2.RunWorkerAsync();
             }
@@ -374,7 +379,170 @@ namespace ProyectoPrensa
 
         }
 
-       
+        private void C_Placas_Click(object sender, EventArgs e)
+        {
+            if (!backgroundWorker4.IsBusy)
+            {
+                backgroundWorker4.RunWorkerAsync();
+            }
+        }
+
+        private void Lect_Click(object sender, EventArgs e)
+        {
+            //Coloca los titulos en los ejes
+            PresionTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisY.Title = "Presión";
+            PresionTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            PresionTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            DistanciaTiempo.ChartAreas[0].AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisY.Title = "Distancia(cm)";
+            DistanciaTiempo.ChartAreas[0].AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            DistanciaTiempo.ChartAreas[0].AxisX.Title = "Tiempo(s)";
+            if (T1D.Text == "" || T2D.Text == "")
+            {
+                MessageBox.Show("Favor Ingresar valores de temperatura deseados");
+
+            }
+            else
+            {
+
+                serialPort1.Write("2");
+                string LDistancia = serialPort1.ReadLine().ToString();
+                Globales.Distancia = Convert.ToDouble(LDistancia);
+                DDist.Text = LDistancia.ToString();
+                
+
+                    if (!backgroundWorker3.IsBusy && !backgroundWorker2.IsBusy)
+                    {
+                        backgroundWorker3.RunWorkerAsync();
+                    }
+
+                
+                
+            }
+        }
+
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                Globales.M_Tiempo.Start();
+                //Escribe en el puerto serial un 6 donde solicita adquirir datos del A0
+                serialPort1.Write("6");
+                //lee el dato de serial
+
+                string Dato = serialPort1.ReadLine().ToString();
+                double Sensor = Convert.ToDouble(Dato);
+                Globales.Voltaje = Sensor * 5 / 1023;
+                //Actualiza y hace un reporte para actualizar el Form
+                serialPort1.Write("2");
+                string LDistancia = serialPort1.ReadLine().ToString();
+                Globales.Distancia = Convert.ToDouble(LDistancia);
+
+                serialPort1.Write("3");
+                Globales.Temp1 = serialPort1.ReadLine();
+
+                if (Convert.ToDouble(Globales.Temp1) < Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("7");
+                }
+                if (Convert.ToDouble(Globales.Temp1) >= Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("8");
+                }
+
+                serialPort1.Write("4");
+                Globales.Temp2 = serialPort1.ReadLine();
+                if (Convert.ToDouble(Globales.Temp2) < Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("c");
+                }
+                if (Convert.ToDouble(Globales.Temp2) >= Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("d");
+                }
+
+
+                backgroundWorker3.ReportProgress(Globales.i);
+
+                //Avanza el conteo
+                Globales.i = Globales.i + 1;
+                //Revisa si se cancela la actividad 
+                if (backgroundWorker3.CancellationPending)
+                {
+
+                    break;
+                }
+
+            }
+        }
+
+        private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //Luego ese dato se publica en el Label A0
+
+            A0.Text = Globales.Voltaje.ToString();
+            DDist.Text = Globales.Distancia.ToString();
+            Temp1.Text = Globales.Temp1.ToString();
+            Temp2.Text = Globales.Temp2.ToString();
+            //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
+            Globales.Tiempo = Globales.M_Tiempo.Elapsed.ToString("mm\\:ss\\.ff");
+            T_transcurrido.Text = Globales.Tiempo.ToString();
+            PresionTiempo.Series["Presión"].Points.AddXY(Globales.Tiempo, Globales.Voltaje);
+            DistanciaTiempo.Series["Distancia"].Points.AddXY(Globales.Tiempo, Globales.Distancia);
+            //Va generando el string que se convierte en el csv.
+            string delimitador = ",";
+
+            Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp1);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp2);
+        }
+
+        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //En este si no debe hacer nada
+        }
+
+        private void backgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                serialPort1.Write("3");
+                Globales.Temp1 = serialPort1.ReadLine();
+                if (Convert.ToDouble(Globales.Temp1) < Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("7");
+                }
+                if (Convert.ToDouble(Globales.Temp1) >= Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("8");
+                }
+
+                serialPort1.Write("4");
+                Globales.Temp2 = serialPort1.ReadLine();
+                if (Convert.ToDouble(Globales.Temp2) < Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("c");
+                }
+                if (Convert.ToDouble(Globales.Temp2) >= Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("d");
+                }
+            }
+        }
+
+        private void backgroundWorker4_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Temp1.Text = Globales.Temp1.ToString();
+            Temp2.Text = Globales.Temp2.ToString();
+        }
+
+        private void backgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
     }
 }
 

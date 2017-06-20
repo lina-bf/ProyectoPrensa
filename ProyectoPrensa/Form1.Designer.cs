@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -77,6 +77,10 @@
             this.T2D = new System.Windows.Forms.TextBox();
             this.PuertoCOM = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.C_Placas = new System.Windows.Forms.Button();
+            this.Lect = new System.Windows.Forms.Button();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -111,7 +115,7 @@
             this.Lectura.Name = "Lectura";
             this.Lectura.Size = new System.Drawing.Size(146, 59);
             this.Lectura.TabIndex = 2;
-            this.Lectura.Text = "Lectura";
+            this.Lectura.Text = "Movimiento";
             this.Lectura.UseVisualStyleBackColor = true;
             this.Lectura.Click += new System.EventHandler(this.Lectura_Click);
             // 
@@ -126,18 +130,18 @@
             // 
             // PresionTiempo
             // 
-            chartArea1.Name = "ChartArea1";
-            this.PresionTiempo.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.PresionTiempo.Legends.Add(legend1);
+            chartArea15.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea15);
+            legend15.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend15);
             this.PresionTiempo.Location = new System.Drawing.Point(750, 24);
             this.PresionTiempo.Name = "PresionTiempo";
             this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Presión";
-            this.PresionTiempo.Series.Add(series1);
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series15.Legend = "Legend1";
+            series15.Name = "Presión";
+            this.PresionTiempo.Series.Add(series15);
             this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
             this.PresionTiempo.TabIndex = 4;
             this.PresionTiempo.Text = "Gráfico de Presión";
@@ -191,18 +195,18 @@
             // 
             // DistanciaTiempo
             // 
-            chartArea2.Name = "ChartArea1";
-            this.DistanciaTiempo.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.DistanciaTiempo.Legends.Add(legend2);
+            chartArea16.Name = "ChartArea1";
+            this.DistanciaTiempo.ChartAreas.Add(chartArea16);
+            legend16.Name = "Legend1";
+            this.DistanciaTiempo.Legends.Add(legend16);
             this.DistanciaTiempo.Location = new System.Drawing.Point(255, 24);
             this.DistanciaTiempo.Name = "DistanciaTiempo";
             this.DistanciaTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Distancia";
-            this.DistanciaTiempo.Series.Add(series2);
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Legend = "Legend1";
+            series16.Name = "Distancia";
+            this.DistanciaTiempo.Series.Add(series16);
             this.DistanciaTiempo.Size = new System.Drawing.Size(436, 300);
             this.DistanciaTiempo.TabIndex = 11;
             this.DistanciaTiempo.Text = "DistanciaTiempo";
@@ -480,11 +484,49 @@
             this.label15.TabIndex = 29;
             this.label15.Text = "Selección de Puerto:";
             // 
+            // C_Placas
+            // 
+            this.C_Placas.Location = new System.Drawing.Point(255, 458);
+            this.C_Placas.Name = "C_Placas";
+            this.C_Placas.Size = new System.Drawing.Size(145, 59);
+            this.C_Placas.TabIndex = 30;
+            this.C_Placas.Text = "Calentar Placas";
+            this.C_Placas.UseVisualStyleBackColor = true;
+            this.C_Placas.Click += new System.EventHandler(this.C_Placas_Click);
+            // 
+            // Lect
+            // 
+            this.Lect.Location = new System.Drawing.Point(255, 523);
+            this.Lect.Name = "Lect";
+            this.Lect.Size = new System.Drawing.Size(145, 57);
+            this.Lect.TabIndex = 31;
+            this.Lect.Text = "Lectura y Gráfica de Datos";
+            this.Lect.UseVisualStyleBackColor = true;
+            this.Lect.Click += new System.EventHandler(this.Lect_Click);
+            // 
+            // backgroundWorker3
+            // 
+            this.backgroundWorker3.WorkerReportsProgress = true;
+            this.backgroundWorker3.WorkerSupportsCancellation = true;
+            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
+            this.backgroundWorker3.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker3_ProgressChanged);
+            this.backgroundWorker3.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker3_RunWorkerCompleted);
+            // 
+            // backgroundWorker4
+            // 
+            this.backgroundWorker4.WorkerReportsProgress = true;
+            this.backgroundWorker4.WorkerSupportsCancellation = true;
+            this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
+            this.backgroundWorker4.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker4_ProgressChanged);
+            this.backgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker4_RunWorkerCompleted);
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 599);
+            this.Controls.Add(this.Lect);
+            this.Controls.Add(this.C_Placas);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.PuertoCOM);
             this.Controls.Add(this.T2D);
@@ -569,6 +611,10 @@
         private System.Windows.Forms.TextBox T2D;
         private System.Windows.Forms.ComboBox PuertoCOM;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button C_Placas;
+        private System.Windows.Forms.Button Lect;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.ComponentModel.BackgroundWorker backgroundWorker4;
     }
 }
 

@@ -1,11 +1,10 @@
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\ProyectoPrensa.exe.config
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\ProyectoPrensa.exe
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\ProyectoPrensa.pdb
+C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\CsvHelper.dll
+C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\CsvHelper.xml
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.Progra.resources
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.Properties.Resources.resources
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.csproj.GenerateResource.Cache
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.exe
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.pdb
-C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\CsvHelper.dll
-C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\bin\Debug\CsvHelper.xml
-C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.csprojResolveAssemblyReference.cache

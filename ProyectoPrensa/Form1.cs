@@ -248,8 +248,8 @@ namespace ProyectoPrensa
                 //Revisa si se cancela la actividad 
                 if (backgroundWorker1.CancellationPending)
                 {
-                    
-                    e.Cancel = true;
+
+                    break;
                 }
                 
                 if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))

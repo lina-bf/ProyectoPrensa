@@ -226,19 +226,32 @@ namespace ProyectoPrensa
                 serialPort1.Write("2");
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
+               
                 serialPort1.Write("3");
-                serialPort1.Write(T1D.Text);
-                MessageBox.Show(serialPort1.ReadLine());
-                               
-                serialPort1.Write("4");
-                serialPort1.Write(T2D.Text);
-               
-                serialPort1.Write("7");
                 Globales.Temp1 = serialPort1.ReadLine();
+                MessageBox.Show(Globales.Temp1);
+                if (Convert.ToDouble(Globales.Temp1) < Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("7");
+                }
+                if (Convert.ToDouble(Globales.Temp1) >= Convert.ToDouble(T1D.Text))
+                {
+                    serialPort1.Write("8");
+                }
              
-                serialPort1.Write("8");
-                Globales.Temp2 = serialPort1.ReadLine().ToString();
-               
+                serialPort1.Write("4");
+                Globales.Temp2 = serialPort1.ReadLine();
+                if (Convert.ToDouble(Globales.Temp2) < Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("c");
+                }
+                if (Convert.ToDouble(Globales.Temp2) >= Convert.ToDouble(T2D.Text))
+                {
+                    serialPort1.Write("d");
+                }
+
+
+
                 serialPort1.Write("a");
                 
                
@@ -255,7 +268,7 @@ namespace ProyectoPrensa
                 
                 if (Globales.Distancia <= Convert.ToDouble(DistanciaMax.Text))
                 {
-                    MessageBox.Show("Deberia romper el ciclo");
+                    
                     break;
                 }
 

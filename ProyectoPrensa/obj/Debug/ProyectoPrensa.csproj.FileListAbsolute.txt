@@ -8,3 +8,4 @@ C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\o
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.csproj.GenerateResource.Cache
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.exe
 C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.pdb
+C:\Users\Lina\Documents\GitHub\PRENSA_I_SEM_2017\ProyectoPrensa\ProyectoPrensa\obj\Debug\ProyectoPrensa.csprojResolveAssemblyReference.cache

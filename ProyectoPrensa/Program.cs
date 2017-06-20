@@ -16,6 +16,7 @@ namespace ProyectoPrensa
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new Progra());
         }
     }

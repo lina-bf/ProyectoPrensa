@@ -229,7 +229,7 @@ namespace ProyectoPrensa
                
                 serialPort1.Write("3");
                 Globales.Temp1 = serialPort1.ReadLine();
-                MessageBox.Show(Globales.Temp1);
+                
                 if (Convert.ToDouble(Globales.Temp1) < Convert.ToDouble(T1D.Text))
                 {
                     serialPort1.Write("7");

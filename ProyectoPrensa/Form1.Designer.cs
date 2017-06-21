@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progra));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.Inicio = new System.Windows.Forms.Button();
             this.Terminar = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -60,10 +60,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.Temp2 = new System.Windows.Forms.Label();
+            this.Tem2 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.Temp1 = new System.Windows.Forms.Label();
+            this.Tem1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.DistanciaMax = new System.Windows.Forms.TextBox();
@@ -81,6 +81,7 @@
             this.Lect = new System.Windows.Forms.Button();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
+            this.Cerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PresionTiempo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanciaTiempo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -130,18 +131,18 @@
             // 
             // PresionTiempo
             // 
-            chartArea15.Name = "ChartArea1";
-            this.PresionTiempo.ChartAreas.Add(chartArea15);
-            legend15.Name = "Legend1";
-            this.PresionTiempo.Legends.Add(legend15);
+            chartArea1.Name = "ChartArea1";
+            this.PresionTiempo.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.PresionTiempo.Legends.Add(legend1);
             this.PresionTiempo.Location = new System.Drawing.Point(750, 24);
             this.PresionTiempo.Name = "PresionTiempo";
             this.PresionTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series15.Legend = "Legend1";
-            series15.Name = "Presión";
-            this.PresionTiempo.Series.Add(series15);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Presión";
+            this.PresionTiempo.Series.Add(series1);
             this.PresionTiempo.Size = new System.Drawing.Size(436, 300);
             this.PresionTiempo.TabIndex = 4;
             this.PresionTiempo.Text = "Gráfico de Presión";
@@ -195,18 +196,18 @@
             // 
             // DistanciaTiempo
             // 
-            chartArea16.Name = "ChartArea1";
-            this.DistanciaTiempo.ChartAreas.Add(chartArea16);
-            legend16.Name = "Legend1";
-            this.DistanciaTiempo.Legends.Add(legend16);
+            chartArea2.Name = "ChartArea1";
+            this.DistanciaTiempo.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.DistanciaTiempo.Legends.Add(legend2);
             this.DistanciaTiempo.Location = new System.Drawing.Point(255, 24);
             this.DistanciaTiempo.Name = "DistanciaTiempo";
             this.DistanciaTiempo.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series16.Legend = "Legend1";
-            series16.Name = "Distancia";
-            this.DistanciaTiempo.Series.Add(series16);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Distancia";
+            this.DistanciaTiempo.Series.Add(series2);
             this.DistanciaTiempo.Size = new System.Drawing.Size(436, 300);
             this.DistanciaTiempo.TabIndex = 11;
             this.DistanciaTiempo.Text = "DistanciaTiempo";
@@ -315,10 +316,10 @@
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.Temp2);
+            this.groupBox4.Controls.Add(this.Tem2);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.Temp1);
+            this.groupBox4.Controls.Add(this.Tem1);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Location = new System.Drawing.Point(750, 376);
             this.groupBox4.Name = "groupBox4";
@@ -335,14 +336,14 @@
             this.label12.TabIndex = 24;
             this.label12.Text = "°C  ";
             // 
-            // Temp2
+            // Tem2
             // 
-            this.Temp2.AutoSize = true;
-            this.Temp2.Location = new System.Drawing.Point(135, 16);
-            this.Temp2.Name = "Temp2";
-            this.Temp2.Size = new System.Drawing.Size(22, 13);
-            this.Temp2.TabIndex = 24;
-            this.Temp2.Text = "0.0";
+            this.Tem2.AutoSize = true;
+            this.Tem2.Location = new System.Drawing.Point(135, 16);
+            this.Tem2.Name = "Tem2";
+            this.Tem2.Size = new System.Drawing.Size(22, 13);
+            this.Tem2.TabIndex = 24;
+            this.Tem2.Text = "0.0";
             // 
             // label11
             // 
@@ -362,14 +363,14 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "°C   ";
             // 
-            // Temp1
+            // Tem1
             // 
-            this.Temp1.AutoSize = true;
-            this.Temp1.Location = new System.Drawing.Point(135, 0);
-            this.Temp1.Name = "Temp1";
-            this.Temp1.Size = new System.Drawing.Size(22, 13);
-            this.Temp1.TabIndex = 24;
-            this.Temp1.Text = "0.0";
+            this.Tem1.AutoSize = true;
+            this.Tem1.Location = new System.Drawing.Point(135, 0);
+            this.Tem1.Name = "Tem1";
+            this.Tem1.Size = new System.Drawing.Size(22, 13);
+            this.Tem1.TabIndex = 24;
+            this.Tem1.Text = "0.0";
             // 
             // label9
             // 
@@ -520,11 +521,22 @@
             this.backgroundWorker4.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker4_ProgressChanged);
             this.backgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker4_RunWorkerCompleted);
             // 
+            // Cerrar
+            // 
+            this.Cerrar.Location = new System.Drawing.Point(1058, 385);
+            this.Cerrar.Name = "Cerrar";
+            this.Cerrar.Size = new System.Drawing.Size(145, 59);
+            this.Cerrar.TabIndex = 32;
+            this.Cerrar.Text = "Cerrar Puerto";
+            this.Cerrar.UseVisualStyleBackColor = true;
+            this.Cerrar.Click += new System.EventHandler(this.Cerrar_Click);
+            // 
             // Progra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1236, 599);
+            this.Controls.Add(this.Cerrar);
             this.Controls.Add(this.Lect);
             this.Controls.Add(this.C_Placas);
             this.Controls.Add(this.label15);
@@ -600,10 +612,10 @@
         private System.Windows.Forms.Button Parar;
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label Temp2;
+        private System.Windows.Forms.Label Tem2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label Temp1;
+        private System.Windows.Forms.Label Tem1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox T1D;
@@ -615,6 +627,7 @@
         private System.Windows.Forms.Button Lect;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.ComponentModel.BackgroundWorker backgroundWorker4;
+        private System.Windows.Forms.Button Cerrar;
     }
 }
 

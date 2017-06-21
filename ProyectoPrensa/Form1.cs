@@ -46,6 +46,7 @@ namespace ProyectoPrensa
             public static string Temp2;
             public static string Puerto;
             public static int temporal;
+            public static int soyuntemporal;
 
         }
 
@@ -105,8 +106,10 @@ namespace ProyectoPrensa
         {
             try
             {
-                this.backgroundWorker1.CancelAsync();
-                
+                backgroundWorker1.CancelAsync();
+                backgroundWorker3.CancelAsync();
+                backgroundWorker4.CancelAsync();
+
                 //Envia un 0 al puerto serial , que el case de la programacion del arduino genera el cierre de comunicacion
                 serialPort1.Write("b");
                 System.Threading.Thread.Sleep(20);
@@ -141,7 +144,7 @@ namespace ProyectoPrensa
             {
                 MessageBox.Show(ex.Message);
             }
-            serialPort1.Close();
+           // serialPort1.Close();
         }
 
 
@@ -168,7 +171,7 @@ namespace ProyectoPrensa
                 string LDistancia = serialPort1.ReadLine().ToString();
                 Globales.Distancia = Convert.ToDouble(LDistancia);
                 DDist.Text = LDistancia.ToString();
-                if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(1000))
+                if (DistanciaMax.Text != "" && Convert.ToSingle(DistanciaMax.Text) < Convert.ToSingle(24.5))
                 {
 
                     if (!backgroundWorker1.IsBusy && !backgroundWorker2.IsBusy)
@@ -179,7 +182,7 @@ namespace ProyectoPrensa
                 }
                 else
                 {
-                    if (Convert.ToSingle(DistanciaMax.Text) < 1000)
+                    if (Convert.ToSingle(DistanciaMax.Text) < 24.5)
                     {
 
                         MessageBox.Show("Error en la distancia máxima");
@@ -285,8 +288,8 @@ namespace ProyectoPrensa
             
             A0.Text = Globales.Voltaje.ToString();
             DDist.Text = Globales.Distancia.ToString();
-            Temp1.Text = Globales.Temp1.ToString();
-            Temp2.Text = Globales.Temp2.ToString();
+            Tem1.Text = Globales.Temp1.ToString();
+            Tem2.Text = Globales.Temp2.ToString();
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
             Globales.Tiempo = Globales.M_Tiempo.Elapsed.ToString("mm\\:ss\\.ff");
             T_transcurrido.Text = Globales.Tiempo.ToString();
@@ -298,8 +301,8 @@ namespace ProyectoPrensa
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
-            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp1);
-            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp2);
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Convert.ToDouble(Globales.Temp1));
+            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Convert.ToDouble(Globales.Temp2));
 
         }
 
@@ -468,7 +471,7 @@ namespace ProyectoPrensa
                 //Avanza el conteo
                 Globales.i = Globales.i + 1;
                 //Revisa si se cancela la actividad 
-                if (backgroundWorker3.CancellationPending)
+                if (backgroundWorker4.CancellationPending)
                 {
 
                     break;
@@ -483,8 +486,8 @@ namespace ProyectoPrensa
 
             A0.Text = Globales.Voltaje.ToString();
             DDist.Text = Globales.Distancia.ToString();
-            Temp1.Text = Globales.Temp1.ToString();
-            Temp2.Text = Globales.Temp2.ToString();
+            Tem1.Text = Globales.Temp1.ToString();
+            Tem2.Text = Globales.Temp2.ToString();
             //Grafica temporal en un i que es conteo de clicks se debe cambia a grafica de tiempo
             Globales.Tiempo = Globales.M_Tiempo.Elapsed.ToString("mm\\:ss\\.ff");
             T_transcurrido.Text = Globales.Tiempo.ToString();
@@ -495,9 +498,9 @@ namespace ProyectoPrensa
 
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
-            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Distancia);
-            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp1);
-            Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Temp2);
+            Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Distancia);
+            Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Temp1);
+            Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Temp2);
         }
 
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -509,6 +512,7 @@ namespace ProyectoPrensa
         {
             while (true)
             {
+
                 serialPort1.Write("3");
                 Globales.Temp1 = serialPort1.ReadLine();
                 if (Convert.ToDouble(Globales.Temp1) < Convert.ToDouble(T1D.Text))
@@ -530,18 +534,30 @@ namespace ProyectoPrensa
                 {
                     serialPort1.Write("d");
                 }
+                backgroundWorker4.ReportProgress(Globales.soyuntemporal);
+                Globales.soyuntemporal = Globales.soyuntemporal + 1;
+                if (backgroundWorker4.CancellationPending)
+                {
+
+                    break;
+                }
             }
         }
 
         private void backgroundWorker4_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Temp1.Text = Globales.Temp1.ToString();
-            Temp2.Text = Globales.Temp2.ToString();
+            Tem1.Text = Globales.Temp1.ToString();
+            Tem2.Text = Globales.Temp2.ToString();
         }
 
         private void backgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
+        }
+
+        private void Cerrar_Click(object sender, EventArgs e)
+        {
+            serialPort1.Close();
         }
     }
 }

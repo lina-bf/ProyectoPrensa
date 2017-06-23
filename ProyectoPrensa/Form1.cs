@@ -82,7 +82,7 @@ namespace ProyectoPrensa
             }
             if (PuertoCOM.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione priemero el puerto a conectar");
+                MessageBox.Show("Seleccione primero el puerto a conectar");
             }
             else
             {

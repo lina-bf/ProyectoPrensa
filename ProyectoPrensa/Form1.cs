@@ -499,8 +499,8 @@ namespace ProyectoPrensa
             Globales.Dpresion = string.Join(System.Environment.NewLine, Globales.Dpresion, Globales.Tiempo);
             Globales.Dpresion = string.Join(delimitador, Globales.Dpresion, Globales.Voltaje);
             Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Distancia);
-            Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Temp1);
-            Globales.Dpresion = string.Join(",", Globales.Dpresion, Globales.Temp2);
+            Globales.Dpresion = string.Join(",", Globales.Dpresion, Convert.ToDouble(Globales.Temp1));
+            Globales.Dpresion = string.Join(",", Globales.Dpresion, Convert.ToDouble(Globales.Temp2));
         }
 
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
